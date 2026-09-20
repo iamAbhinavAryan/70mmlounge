@@ -449,11 +449,134 @@
 
             .gallery-comments-send ion-icon { font-size: 22px; }
 
+            .gallery-gif-backdrop {
+                position: absolute;
+                inset: 0;
+                z-index: 8;
+                display: none;
+                background: rgba(0, 0, 0, 0.42);
+            }
+
+            .gallery-gif-panel {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 9;
+                display: none;
+                height: min(70vh, 620px);
+                padding: 14px 12px 12px;
+                background: #111214;
+                border-radius: 18px 18px 0 0;
+                box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.35);
+                overflow: hidden;
+            }
+
+            .gallery-gif-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+
+            .gallery-gif-title {
+                margin: 0;
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #fff;
+            }
+
+            .gallery-gif-close {
+                display: grid;
+                place-items: center;
+                width: 36px;
+                height: 36px;
+                background: transparent;
+                border: 0;
+                color: #fff;
+                border-radius: 50%;
+            }
+
+            .gallery-gif-search {
+                width: 100%;
+                height: 46px;
+                margin-bottom: 12px;
+                padding: 0 16px;
+                color: #fff;
+                background: rgba(255, 255, 255, 0.08);
+                border: 0;
+                border-radius: 999px;
+                outline: 0;
+            }
+
+            .gallery-gif-search::placeholder {
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+            .gallery-gif-results {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+                height: calc(100% - 98px);
+                overflow-y: auto;
+            }
+
+            .gallery-gif-item {
+                display: block;
+                width: 100%;
+                padding: 0;
+                background: #1c1d20;
+                border: 0;
+                border-radius: 14px;
+                overflow: hidden;
+            }
+
+            .gallery-gif-item img {
+                display: block;
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+            }
+
+            .gallery-gif-empty {
+                grid-column: 1 / -1;
+                padding: 18px 12px;
+                color: rgba(255, 255, 255, 0.75);
+                text-align: center;
+                font-size: 0.95rem;
+            }
+
             .gallery-comments-item {
                 display: flex;
                 gap: 10px;
                 padding: 12px 0;
                 color: #f5f5f5;
+                border-radius: 10px;
+                max-height: 220px;
+                overflow: hidden;
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                transition: max-height 250ms ease, opacity 250ms ease, transform 250ms ease, padding 250ms ease, margin 250ms ease;
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+
+            .gallery-comments-item.deleting {
+                opacity: 0;
+                transform: translateX(18px) scale(0.98);
+                max-height: 0;
+                padding-top: 0;
+                padding-bottom: 0;
+                margin: 0;
+                pointer-events: none;
+            }
+
+            .gallery-comments-item:active {
+                background: rgba(255, 255, 255, 0.03);
             }
 
             .gallery-comments-item-avatar {
@@ -464,9 +587,128 @@
                 object-fit: cover;
             }
 
-            .gallery-comments-item-body { min-width: 0; }
-            .gallery-comments-item-author { font-size: 0.8rem; font-weight: 700; }
-            .gallery-comments-item-text { margin: 3px 0 0; overflow-wrap: anywhere; }
+            .gallery-comments-item-body {
+                min-width: 0;
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+            }
+            .gallery-comments-item-header {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .gallery-comments-item-author {
+                font-size: 0.9rem;
+                font-weight: 700;
+            }
+            .gallery-comments-item-time {
+                color: #aeb1b5;
+                font-size: 0.68rem;
+                font-weight: 500;
+            }
+            .gallery-comments-item-text {
+                margin: 3px 0 0;
+                font-size: 0.92rem;
+                line-height: 1.4;
+                overflow-wrap: anywhere;
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+            }
+            .gallery-comments-item-reply {
+                margin-top: 8px;
+                padding: 0;
+                color: #aeb1b5;
+                font-size: 0.8rem;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+                background: transparent;
+                border: 0;
+                -webkit-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+            }
+            .gallery-comments-item-gif {
+                display: block;
+                width: 100%;
+                max-width: 220px;
+                margin-top: 8px;
+                border-radius: 12px;
+            }
+
+            .gallery-context-backdrop {
+                position: absolute;
+                inset: 0;
+                z-index: 6;
+                display: none;
+                background: rgba(0, 0, 0, 0.32);
+            }
+
+            .gallery-context-backdrop.visible {
+                display: block;
+            }
+
+            .gallery-context-sheet {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                z-index: 7;
+                display: none;
+                padding: 12px 12px 18px;
+                background: rgba(21, 21, 21, 0.98);
+                border-radius: 18px 18px 0 0;
+                box-shadow: 0 -16px 32px rgba(0, 0, 0, 0.35);
+                transform: translateY(100%);
+                transition: transform 240ms ease;
+            }
+
+            .gallery-context-sheet.open {
+                display: block;
+                transform: translateY(0);
+            }
+
+            .gallery-context-grip {
+                width: 42px;
+                height: 4px;
+                margin: 2px auto 10px;
+                background: rgba(255, 255, 255, 0.32);
+                border-radius: 999px;
+            }
+
+            .gallery-context-action {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                width: 100%;
+                padding: 14px 12px;
+                color: #fff;
+                font-family: inherit;
+                font-size: 1rem;
+                font-weight: 600;
+                background: transparent;
+                border: 0;
+                border-radius: 12px;
+                text-align: left;
+            }
+
+            .gallery-context-action + .gallery-context-action {
+                margin-top: 4px;
+            }
+
+            .gallery-context-action.reply {
+                color: #ffffff;
+            }
+
+            .gallery-context-action.delete {
+                color: #ed4956;
+            }
+
+            .gallery-context-action ion-icon {
+                font-size: 20px;
+            }
 
             .gallery-comments-media button {
                 display: grid;
@@ -880,6 +1122,7 @@
             <input class="gallery-player-seek" id="gallery-player-seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Video seek bar">
         </div>
         <div class="gallery-comments-backdrop" id="gallery-comments-backdrop"></div>
+        <div class="gallery-context-backdrop" id="gallery-context-backdrop"></div>
         <section class="gallery-comments-sheet" id="gallery-comments-sheet" aria-label="Comments" aria-hidden="true">
             <header class="gallery-comments-header" id="gallery-comments-handle-area">
                 <span class="gallery-comments-handle" aria-hidden="true"></span>
@@ -906,8 +1149,7 @@
                     <div class="gallery-comments-input-wrap">
                         <input class="gallery-comments-input" type="text" placeholder="Comment as guest..." aria-label="Write a comment">
                         <div class="gallery-comments-media">
-                            
-                            <button type="button" aria-label="Add GIF"><strong>GIF</strong></button>
+                            <button id="gallery-gif-button" type="button" aria-label="Add GIF"><strong>GIF</strong></button>
                             <button class="gallery-comments-send" id="gallery-comments-send" type="submit" aria-label="Send comment">
                                 <ion-icon name="paper-plane-outline" aria-hidden="true"></ion-icon>
                             </button>
@@ -916,6 +1158,29 @@
                 </form>
             </footer>
         </section>
+
+        <div class="gallery-gif-backdrop" id="gallery-gif-backdrop"></div>
+        <aside class="gallery-gif-panel" id="gallery-gif-panel" aria-label="GIF picker" aria-hidden="true">
+            <div class="gallery-gif-header">
+                <h3 class="gallery-gif-title">Choose a GIF</h3>
+                <button class="gallery-gif-close" id="gallery-gif-close" type="button" aria-label="Close GIF picker">
+                    <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+                </button>
+            </div>
+            <input class="gallery-gif-search" id="gallery-gif-search" type="search" placeholder="Search GIPHY" aria-label="Search GIFs">
+            <div class="gallery-gif-results" id="gallery-gif-results"></div>
+        </aside>
+        <div class="gallery-context-sheet" id="gallery-context-sheet" aria-hidden="true">
+            <div class="gallery-context-grip"></div>
+            <button class="gallery-context-action reply" id="gallery-context-reply" type="button">
+                <ion-icon name="paper-plane-outline" aria-hidden="true"></ion-icon>
+                <span>Reply</span>
+            </button>
+            <button class="gallery-context-action delete" id="gallery-context-delete" type="button">
+                <ion-icon name="trash-outline" aria-hidden="true"></ion-icon>
+                <span>Delete</span>
+            </button>
+        </div>
     </section>
 
         <!--
@@ -991,16 +1256,31 @@
             const galleryCommentsSheet = document.querySelector("#gallery-comments-sheet");
             const galleryCommentsHandleArea = document.querySelector("#gallery-comments-handle-area");
             const galleryCommentsInput = document.querySelector(".gallery-comments-input");
+            const galleryCommentsAvatar = document.querySelector(".gallery-comments-avatar");
             const galleryCommentsEmojis = document.querySelectorAll(".gallery-comments-emoji");
             const galleryCommentsComposer = document.querySelector("#gallery-comments-composer");
             const galleryCommentsSend = document.querySelector("#gallery-comments-send");
             const galleryCommentsList = document.querySelector(".gallery-comments-list");
             const galleryCommentsHeading = document.querySelector(".gallery-comments-heading");
             const galleryCommentsSubtext = document.querySelector(".gallery-comments-subtext");
+            const galleryGifButton = document.querySelector("#gallery-gif-button");
+            const galleryGifBackdrop = document.querySelector("#gallery-gif-backdrop");
+            const galleryGifPanel = document.querySelector("#gallery-gif-panel");
+            const galleryGifClose = document.querySelector("#gallery-gif-close");
+            const galleryGifSearch = document.querySelector("#gallery-gif-search");
+            const galleryGifResults = document.querySelector("#gallery-gif-results");
             const galleryPlayerLike = document.querySelector("#gallery-player-like");
             const galleryPlayerLikeCount = document.querySelector("#gallery-player-like-count");
             const galleryPlayerCommentCount = document.querySelector("#gallery-player-comment-count");
             const galleryLikeBurst = document.querySelector("#gallery-like-burst");
+            const galleryContextBackdrop = document.querySelector("#gallery-context-backdrop");
+            const galleryContextSheet = document.querySelector("#gallery-context-sheet");
+            const galleryContextReply = document.querySelector("#gallery-context-reply");
+            const galleryContextDelete = document.querySelector("#gallery-context-delete");
+            const modalDeleteBtn = document.getElementById("modalDeleteBtn") || galleryContextDelete;
+            const actionModalBackdrop = document.getElementById("actionModalBackdrop") || galleryContextBackdrop;
+            const ADMIN_EMAIL = "70mmlounge8bokaro@gmail.com";
+            const GALLERY_DEVICE_ID_KEY = "70mm-gallery-device-id";
             let galleryPlayerHistoryActive = false;
             let galleryPlayerIndex = 0;
             let galleryActiveVideoId = null;
@@ -1011,6 +1291,7 @@
             let gallerySwipeMoved = false;
             let galleryCommentsTouchStartY = 0;
             let galleryCommentsCloseTimer = null;
+            let galleryReplyTarget = null;
 
             const updatePlayerIcon = () => {
                 galleryPlayerToggle.querySelector("ion-icon").setAttribute(
@@ -1053,45 +1334,267 @@
                 galleryPlayerLikeCount.textContent = Number(count || 0).toLocaleString();
             };
 
+            const getGalleryDeviceId = () => {
+                const stored = localStorage.getItem(GALLERY_DEVICE_ID_KEY);
+                if (stored) return stored;
+                const created = `guest_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+                localStorage.setItem(GALLERY_DEVICE_ID_KEY, created);
+                return created;
+            };
+
+            const getGalleryUserInfo = () => {
+                const user = firebaseConfigured && firebase.auth ? firebase.auth().currentUser : null;
+                if (!user) {
+                    const name = "Guest";
+                    return {
+                        id: getGalleryDeviceId(),
+                        name,
+                        image: "./assets/images/logo1.png",
+                        email: "",
+                        placeholder: "Comment as guest..."
+                    };
+                }
+
+                const name = user.displayName || user.email?.split("@")[0] || "Guest";
+                return {
+                    id: user.uid,
+                    name,
+                    image: user.photoURL || "./assets/images/logo1.png",
+                    email: user.email || "",
+                    placeholder: `Comment as ${name}...`
+                };
+            };
+
+            const isGalleryAdmin = () => {
+                const user = firebaseConfigured && firebase.auth ? firebase.auth().currentUser : null;
+                return Boolean(user && user.email && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase());
+            };
+
+            const getGalleryCommentOwnership = (comment) => {
+                if (!comment) return { isOwner: false, actor: getGalleryUserInfo() };
+
+                const actor = getGalleryUserInfo();
+                const candidateIds = [
+                    comment.userId,
+                    comment.deviceId,
+                    comment.ownerId,
+                    comment.uid,
+                    comment.authorId,
+                    comment.id,
+                    comment.email,
+                    comment.userEmail
+                ].filter(Boolean).map((value) => String(value));
+
+                const candidateNames = [
+                    comment.author,
+                    comment.username,
+                    comment.name,
+                    comment.displayName,
+                    comment.userName
+                ].filter(Boolean).map((value) => String(value).trim().toLowerCase());
+
+                const candidateEmails = [
+                    comment.email,
+                    comment.userEmail
+                ].filter(Boolean).map((value) => String(value).trim().toLowerCase());
+
+                const actorId = String(actor.id || "");
+                const actorName = String(actor.name || "").trim().toLowerCase();
+                const actorEmail = String(actor.email || "").trim().toLowerCase();
+                const actorLocalName = actor.email ? actor.email.split("@")[0].trim().toLowerCase() : "";
+
+                const isOwner =
+                    candidateIds.includes(actorId) ||
+                    candidateNames.includes(actorName) ||
+                    candidateNames.includes(actorLocalName) ||
+                    candidateEmails.includes(actorEmail) ||
+                    candidateEmails.includes(actorLocalName);
+
+                return { isOwner, actor };
+            };
+
+            const canDeleteGalleryComment = (comment) => {
+                if (!comment) return false;
+                if (isGalleryAdmin()) return true;
+                return getGalleryCommentOwnership(comment).isOwner;
+            };
+
+            const formatRelativeTime = (timestamp) => {
+                const value = Number(timestamp || Date.now());
+                const diffMs = Math.max(Date.now() - value, 0);
+                const secs = Math.max(1, Math.floor(diffMs / 1000));
+                if (secs < 60) return `${secs}sec`;
+                const mins = Math.floor(secs / 60);
+                if (mins < 60) return `${mins}m`;
+                const hours = Math.floor(mins / 60);
+                if (hours < 24) return `${hours}h`;
+                const days = Math.floor(hours / 24);
+                if (days < 7) return `${days}d`;
+                const weeks = Math.floor(days / 7);
+                if (weeks < 5) return `${weeks}w`;
+                return `${Math.floor(days / 30)}mo`;
+            };
+
+            const updateGalleryCommentComposerUser = () => {
+                if (!galleryCommentsAvatar || !galleryCommentsInput) return;
+                const userInfo = getGalleryUserInfo();
+                galleryCommentsAvatar.src = userInfo.image;
+                galleryCommentsAvatar.alt = `${userInfo.name} profile`;
+                galleryCommentsInput.placeholder = userInfo.placeholder;
+                galleryCommentsInput.setAttribute("aria-label", `Write a comment as ${userInfo.name}`);
+            };
+
+            const preventGalleryCommentSelection = (event) => {
+                if (event && typeof event.preventDefault === "function") {
+                    event.preventDefault();
+                }
+                if (window.getSelection) {
+                    const selection = window.getSelection();
+                    if (selection && selection.rangeCount > 0) selection.removeAllRanges();
+                }
+            };
+
+            const animateCommentRemoval = (commentId) => {
+                const target = document.querySelector(`.gallery-comments-item[data-comment-id="${CSS.escape(commentId)}"]`);
+                if (!target) return;
+                target.classList.add("deleting");
+                setTimeout(() => {
+                    target.remove();
+                }, 250);
+            };
+
+            const closeGalleryContext = () => {
+                galleryContextSheet.classList.remove("open");
+                galleryContextBackdrop.classList.remove("visible");
+                if (actionModalBackdrop) {
+                    actionModalBackdrop.classList.remove("visible");
+                }
+            };
+
+            const openGalleryContext = (comment) => {
+                if (!comment) return;
+                const actor = getGalleryUserInfo();
+                const commentOwnerId = comment.userId || comment.deviceId || comment.ownerId || null;
+                const isOwner = getGalleryCommentOwnership(comment).isOwner || Boolean(commentOwnerId && commentOwnerId === actor.id);
+                const isAdmin = isGalleryAdmin();
+                const showDelete = isAdmin || isOwner;
+                galleryContextDelete.style.display = showDelete ? "flex" : "none";
+                galleryContextSheet.classList.add("open");
+                galleryContextBackdrop.classList.add("visible");
+                galleryContextSheet.dataset.commentId = comment.id || "";
+                galleryContextSheet.dataset.userId = commentOwnerId || "";
+            };
+
+            const setGalleryReplyTarget = (comment) => {
+                if (!comment || !comment.username) return;
+                galleryReplyTarget = comment.username;
+                galleryCommentsInput.value = `@${comment.username} `;
+                galleryCommentsInput.focus({ preventScroll: true });
+                requestAnimationFrame(() => {
+                    const end = galleryCommentsInput.value.length;
+                    galleryCommentsInput.setSelectionRange(end, end);
+                });
+            };
+
             const renderGalleryComments = (snapshot) => {
                 galleryCommentsList.replaceChildren();
-                let commentCount = 0;
+                const comments = [];
 
                 snapshot.forEach((commentSnapshot) => {
                     const comment = commentSnapshot.val();
-                    if (!comment || !comment.text) return;
+                    if (!comment || (!comment.text && !comment.gifUrl)) return;
+                    comments.push({ ...comment, id: commentSnapshot.key });
+                });
 
+                comments.sort((a, b) => Number(b.createdAt || 0) - Number(a.createdAt || 0));
+
+                comments.forEach((comment) => {
                     const item = document.createElement("article");
                     item.className = "gallery-comments-item";
+                    item.dataset.commentId = comment.id;
+                    item.dataset.userId = comment.userId || comment.deviceId || comment.ownerId || "";
+                    item.dataset.username = comment.author || comment.username || "Guest";
 
                     const avatar = document.createElement("img");
                     avatar.className = "gallery-comments-item-avatar";
-                    avatar.src = "./assets/images/logo1.png";
-                    avatar.alt = "";
+                    avatar.src = comment.image || comment.photoURL || "./assets/images/logo1.png";
+                    avatar.alt = comment.author || comment.username || "Guest";
 
                     const body = document.createElement("div");
                     body.className = "gallery-comments-item-body";
 
+                    const header = document.createElement("div");
+                    header.className = "gallery-comments-item-header";
+
                     const author = document.createElement("strong");
                     author.className = "gallery-comments-item-author";
-                    author.textContent = comment.author || "Guest";
+                    author.textContent = comment.author || comment.username || "Guest";
+
+                    const time = document.createElement("span");
+                    time.className = "gallery-comments-item-time";
+                    time.textContent = formatRelativeTime(comment.createdAt);
+
+                    header.append(author, time);
 
                     const text = document.createElement("p");
                     text.className = "gallery-comments-item-text";
-                    text.textContent = comment.text;
+                    text.textContent = comment.text || "";
 
-                    body.append(author, text);
+                    body.append(header, text);
+
+                    if (comment.gifUrl) {
+                        const gif = document.createElement("img");
+                        gif.className = "gallery-comments-item-gif";
+                        gif.src = comment.gifUrl;
+                        gif.alt = comment.text || "GIF comment";
+                        body.append(gif);
+                    }
+
+                    const replyButton = document.createElement("button");
+                    replyButton.type = "button";
+                    replyButton.className = "gallery-comments-item-reply";
+                    replyButton.textContent = "Reply";
+                    replyButton.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        setGalleryReplyTarget({ username: comment.author || comment.username || "Guest" });
+                    });
+                    body.append(replyButton);
+
                     item.append(avatar, body);
+
+                    let longPressTimer = null;
+                    const startLongPress = (event) => {
+                        preventGalleryCommentSelection(event);
+                        clearTimeout(longPressTimer);
+                        longPressTimer = setTimeout(() => {
+                            openGalleryContext({
+                                id: comment.id,
+                                userId: comment.userId || comment.deviceId || comment.ownerId || null,
+                                deviceId: comment.deviceId || comment.userId || comment.ownerId || null,
+                                username: comment.author || comment.username || "Guest",
+                                author: comment.author || comment.username || "Guest"
+                            });
+                        }, 500);
+                    };
+                    const cancelLongPress = () => clearTimeout(longPressTimer);
+                    item.addEventListener("pointerdown", startLongPress);
+                    item.addEventListener("pointerup", cancelLongPress);
+                    item.addEventListener("pointerleave", cancelLongPress);
+                    item.addEventListener("pointercancel", cancelLongPress);
+                    item.addEventListener("selectstart", preventGalleryCommentSelection);
+                    item.addEventListener("dragstart", preventGalleryCommentSelection);
+                    item.addEventListener("contextmenu", preventGalleryCommentSelection);
+
+                    text.addEventListener("click", () => {
+                        setGalleryReplyTarget({ username: comment.author || comment.username || "Guest" });
+                    });
+
                     galleryCommentsList.append(item);
-                    commentCount += 1;
                 });
 
+                const commentCount = comments.length;
                 galleryPlayerCommentCount.textContent = commentCount.toLocaleString();
                 galleryPlayerComment.setAttribute("aria-label", `Open comments, ${commentCount} total`);
-
-                if (!commentCount) {
-                    galleryCommentsList.innerHTML = "";
-                }
                 galleryCommentsHeading.hidden = commentCount > 0;
                 galleryCommentsSubtext.hidden = commentCount > 0;
             };
@@ -1104,8 +1607,14 @@
 
                 if (!firebaseConfigured) return;
 
-                galleryCommentsListener = firebase.database().ref(`comments/${videoId}`);
-                galleryCommentsListener.on("value", renderGalleryComments);
+                const commentsRef = firebase.database().ref(`comments/${videoId}`);
+                galleryCommentsListener = commentsRef;
+                commentsRef.on("value", renderGalleryComments);
+                commentsRef.on("child_removed", (snapshot) => {
+                    const commentId = snapshot.key;
+                    if (!commentId) return;
+                    animateCommentRemoval(commentId);
+                });
             };
 
             const subscribeToLikes = (videoId) => {
@@ -1307,27 +1816,234 @@
             galleryCommentsEmojis.forEach((emojiButton) => {
                 emojiButton.addEventListener("click", () => {
                     galleryCommentsInput.value += emojiButton.textContent;
+                    galleryReplyTarget = null;
                     galleryCommentsInput.focus();
                 });
             });
 
-            galleryCommentsComposer.addEventListener("submit", async (event) => {
-                event.preventDefault();
-                const text = galleryCommentsInput.value.trim();
-                if (!text || !galleryActiveVideoId || !firebaseConfigured) return;
+            galleryCommentsInput.addEventListener("input", () => {
+                if (galleryReplyTarget && !galleryCommentsInput.value.startsWith(`@${galleryReplyTarget}`)) {
+                    galleryReplyTarget = null;
+                }
+            });
+
+            const GIPHY_API_KEY = "8yXcduHkp35xYaxPswM9myiSxHxoftbX";
+            let selectedGifUrl = "";
+            let galleryGifTapLock = false;
+
+            const postGalleryComment = async ({ text = "", gifUrl = "" } = {}) => {
+                const finalText = String(text || "").trim();
+                const finalGifUrl = gifUrl || selectedGifUrl || "";
+
+                if ((!finalText && !finalGifUrl) || !galleryActiveVideoId || !firebaseConfigured) return false;
+
+                const actor = getGalleryUserInfo();
+                const payload = {
+                    userId: actor.id,
+                    author: actor.name,
+                    image: actor.image,
+                    username: actor.name,
+                    deviceId: actor.id,
+                    text: finalText || "GIF",
+                    gifUrl: finalGifUrl || null,
+                    createdAt: Date.now()
+                };
 
                 galleryCommentsSend.disabled = true;
                 try {
-                    await firebase.database().ref(`comments/${galleryActiveVideoId}`).push({
-                        author: "Guest",
-                        text,
-                        createdAt: firebase.database.ServerValue.TIMESTAMP
-                    });
+                    await firebase.database().ref(`comments/${galleryActiveVideoId}`).push(payload);
                     galleryCommentsInput.value = "";
+                    galleryReplyTarget = null;
+                    selectedGifUrl = "";
+                    updateGalleryCommentComposerUser();
                     galleryCommentsInput.focus();
+                    return true;
+                } catch (error) {
+                    console.error("Gallery comment post failed:", error);
+                    return false;
                 } finally {
                     galleryCommentsSend.disabled = false;
                 }
+            };
+
+            const openGifPicker = async () => {
+                if (!galleryGifPanel || !galleryGifBackdrop) return;
+                galleryGifPanel.setAttribute("aria-hidden", "false");
+                galleryGifPanel.style.display = "block";
+                galleryGifBackdrop.style.display = "block";
+                galleryGifSearch.value = "";
+                galleryGifResults.innerHTML = "";
+
+                if (!GIPHY_API_KEY) {
+                    galleryGifResults.innerHTML = '<div class="gallery-gif-empty">Add your Giphy API key to enable GIF search.</div>';
+                    return;
+                }
+
+                await fetchGiphyResults("trending");
+            };
+
+            const closeGifPicker = () => {
+                if (!galleryGifPanel || !galleryGifBackdrop) return;
+                galleryGifPanel.setAttribute("aria-hidden", "true");
+                galleryGifPanel.style.display = "none";
+                galleryGifBackdrop.style.display = "none";
+            };
+
+            const fetchGiphyResults = async (query) => {
+                if (!GIPHY_API_KEY) {
+                    galleryGifResults.innerHTML = '<div class="gallery-gif-empty">Add your Giphy API key to enable GIF search.</div>';
+                    return;
+                }
+
+                const endpoint = query && query !== "trending"
+                    ? `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=12&offset=0`
+                    : `https://api.giphy.com/v1/gifs/trending?api_key=${GIPHY_API_KEY}&limit=12`;
+
+                try {
+                    const response = await fetch(endpoint);
+                    const data = await response.json();
+                    const gifs = Array.isArray(data.data) ? data.data : [];
+                    galleryGifResults.innerHTML = "";
+
+                    if (!gifs.length) {
+                        galleryGifResults.innerHTML = '<div class="gallery-gif-empty">No GIFs found.</div>';
+                        return;
+                    }
+
+                    gifs.forEach((gif) => {
+                        const button = document.createElement("button");
+                        button.type = "button";
+                        button.className = "gallery-gif-item";
+                        button.setAttribute("aria-label", gif.title || "GIF");
+                        button.innerHTML = `<img src="${gif.images.fixed_height_downsampled.url || gif.images.fixed_height.url}" alt="${gif.title || "GIF"}">`;
+                        button.addEventListener("click", async (event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+
+                            if (galleryGifTapLock) return;
+                            galleryGifTapLock = true;
+                            button.disabled = true;
+
+                            try {
+                                selectedGifUrl = gif.images.original.url || gif.images.fixed_height.url || "";
+                                closeGifPicker();
+                                galleryCommentsInput.value = "";
+                                await postGalleryComment({ gifUrl: selectedGifUrl, text: "" });
+                            } finally {
+                                button.disabled = false;
+                                setTimeout(() => {
+                                    galleryGifTapLock = false;
+                                }, 350);
+                            }
+                        });
+                        galleryGifResults.appendChild(button);
+                    });
+                } catch (error) {
+                    galleryGifResults.innerHTML = '<div class="gallery-gif-empty">GIFs are unavailable right now.</div>';
+                }
+            };
+
+            galleryContextBackdrop.addEventListener("click", closeGalleryContext);
+            galleryContextReply.addEventListener("click", () => {
+                const commentId = galleryContextSheet.dataset.commentId || "";
+                const comment = galleryCommentsList.querySelector(`[data-comment-id="${CSS.escape(commentId)}"]`) || null;
+                if (!comment) {
+                    closeGalleryContext();
+                    return;
+                }
+                const username = comment.dataset.username || "Guest";
+                setGalleryReplyTarget({ username });
+                closeGalleryContext();
+            });
+            const triggerGalleryCommentDelete = async (commentId) => {
+                if (!commentId || !galleryActiveVideoId || !firebaseConfigured) return;
+
+                const target = document.querySelector(`.gallery-comments-item[data-comment-id="${CSS.escape(commentId)}"]`);
+                const commentRef = firebase.database().ref(`comments/${galleryActiveVideoId}/${commentId}`);
+
+                if (target) {
+                    target.classList.add("deleting");
+                    setTimeout(() => target.remove(), 250);
+                }
+
+                closeGalleryContext();
+                if (actionModalBackdrop) {
+                    actionModalBackdrop.classList.remove("visible");
+                }
+
+                try {
+                    const snapshot = await commentRef.once("value");
+                    const comment = snapshot.val();
+                    if (!comment) return;
+
+                    const ownership = getGalleryCommentOwnership(comment);
+                    const allowDelete = isGalleryAdmin() || ownership.isOwner;
+                    if (!allowDelete) {
+                        console.warn("Gallery delete blocked: user is not owner/admin.", comment, getGalleryUserInfo());
+                        if (target) {
+                            target.classList.remove("deleting");
+                        }
+                        return;
+                    }
+
+                    await commentRef.remove();
+                } catch (error) {
+                    console.error("Gallery comment delete failed:", error);
+                    if (target) {
+                        target.classList.remove("deleting");
+                    }
+                }
+            };
+
+            galleryContextDelete.addEventListener("click", async () => {
+                const commentId = galleryContextSheet.dataset.commentId || "";
+                await triggerGalleryCommentDelete(commentId);
+            });
+
+            if (modalDeleteBtn) {
+                modalDeleteBtn.addEventListener("click", async () => {
+                    const commentId = document.querySelector("#actionModalCommentId")?.value || galleryContextSheet.dataset.commentId || "";
+                    await triggerGalleryCommentDelete(commentId);
+                });
+            }
+
+            if (galleryGifButton) {
+                galleryGifButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openGifPicker();
+                });
+            }
+
+            if (galleryGifClose) {
+                galleryGifClose.addEventListener("click", closeGifPicker);
+            }
+
+            if (galleryGifBackdrop) {
+                galleryGifBackdrop.addEventListener("click", closeGifPicker);
+            }
+
+            if (galleryGifSearch) {
+                galleryGifSearch.addEventListener("input", (event) => {
+                    const value = event.target.value.trim();
+                    fetchGiphyResults(value || "trending");
+                });
+            }
+
+            if (firebaseConfigured && firebase.auth) {
+                firebase.auth().onAuthStateChanged((user) => {
+                    updateGalleryCommentComposerUser();
+                });
+            } else {
+                updateGalleryCommentComposerUser();
+            }
+
+            galleryCommentsComposer.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const text = galleryCommentsInput.value.trim();
+                if ((!text && !selectedGifUrl) || !galleryActiveVideoId || !firebaseConfigured) return;
+
+                await postGalleryComment({ text, gifUrl: selectedGifUrl });
             });
 
             galleryPlayerVolume.addEventListener("click", () => {
