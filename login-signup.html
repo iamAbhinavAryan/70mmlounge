@@ -64,7 +64,10 @@
             box-shadow: 0 22px 60px rgba(36, 43, 72, 0.18);
           }
 
-          .auth-brand { margin-bottom: 28px; text-align: center; }
+          .auth-brand {
+            margin: -10px 0 20px;
+            text-align: left;
+          }
 
           .auth-brand img {
             display: inline-block;
@@ -76,15 +79,16 @@
             object-fit: contain;
             filter: brightness(1.35) contrast(1.12) drop-shadow(0 0 12px rgba(226, 182, 89, 0.7));
             box-shadow: none;
+            transform: translateX(-12px);
           }
 
           .auth-page > section {
-            transform: translateY(90px);
+            transform: translateY(99px);
           }
 
-          .auth-heading { margin: 0; font-size: clamp(2rem, 9vw, 2.55rem); line-height: 1; text-align: center; }
+          .auth-heading { margin: 0; font-size: clamp(2rem, 9vw, 2.55rem); line-height: 1; text-align: center; transform: translateY(50px); }
           .auth-heading span { display: block; color: var(--auth-ink); font-size: 0.72em; font-weight: 400; }
-          .auth-subtitle { margin: 18px 0 28px; color: var(--auth-muted); font-size: 0.92rem; text-align: center; }
+          .auth-subtitle { margin: 18px 0 28px; color: #f1f3f5; font-size: 0.92rem; text-align: center; transform: translateY(89px); }
 
           .auth-google-button {
             display: flex;
