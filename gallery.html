@@ -48,12 +48,15 @@
             }
 
             .gallery-topbar {
+                position: sticky;
+                top: 0;
+                z-index: 10;
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
-                height: 60px;
-                padding: 0 18px;
-                border-bottom: 1px solid var(--profile-line);
+                gap: 16px;
+                padding: 18px 16px;
+                color: var(--profile-text);
+                background: linear-gradient(rgba(0, 0, 0, 0.55), transparent);
             }
 
             .gallery-top-action {
@@ -64,8 +67,29 @@
                 place-items: center;
             }
 
-            .gallery-back ion-icon,
-            .gallery-top-action ion-icon { font-size: 25px; }
+            .gallery-back-button {
+                display: grid;
+                width: 34px;
+                height: 34px;
+                padding: 0;
+                color: var(--profile-text);
+                background: transparent;
+                border: 0;
+                place-items: center;
+                cursor: pointer;
+            }
+
+            .gallery-back-button ion-icon {
+                font-size: 27px;
+            }
+
+            .gallery-topbar-title {
+                margin: 0;
+                color: var(--profile-text);
+                font-size: 1.35rem;
+                font-weight: 700;
+                letter-spacing: 0;
+            }
 
             .gallery-handle {
                 margin: 0;
@@ -600,18 +624,18 @@
                 flex-wrap: wrap;
             }
             .gallery-comments-item-author {
-                font-size: 0.9rem;
+                font-size: 1.02rem;
                 font-weight: 700;
             }
             .gallery-comments-item-time {
                 color: #aeb1b5;
-                font-size: 0.68rem;
+                font-size: 0.76rem;
                 font-weight: 500;
             }
             .gallery-comments-item-text {
                 margin: 3px 0 0;
-                font-size: 0.92rem;
-                line-height: 1.4;
+                font-size: 0.98rem;
+                line-height: 1.45;
                 overflow-wrap: anywhere;
                 -webkit-user-select: none;
                 user-select: none;
@@ -621,7 +645,7 @@
                 margin-top: 8px;
                 padding: 0;
                 color: #aeb1b5;
-                font-size: 0.8rem;
+                font-size: 0.86rem;
                 font-weight: 700;
                 letter-spacing: 0.02em;
                 background: transparent;
@@ -1006,6 +1030,13 @@
 <body id="top" class="gallery-page">
     <main class="gallery-shell">
 
+        <header class="gallery-topbar">
+            <button type="button" class="gallery-back-button" aria-label="Go back">
+                <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+            </button>
+            <h2 class="gallery-topbar-title">Your reels</h2>
+        </header>
+
         <section class="gallery-profile" aria-label="70MM Lounge profile">
             <div class="gallery-avatar">
                 <img src="./assets/images/logo1.png" alt="70MM Lounge logo">
@@ -1236,6 +1267,7 @@
                 updateGalleryPlayerBrand(null);
             }
 
+            const galleryBackButton = document.querySelector(".gallery-back-button");
             const galleryTabs = document.querySelectorAll("[data-gallery-tab]");
             const galleryViews = document.querySelectorAll(".gallery-view");
             const galleryVideoTiles = document.querySelectorAll(".gallery-video-tile");
@@ -2117,6 +2149,21 @@
             window.addEventListener("popstate", () => {
                 if (!galleryPlayer.hidden) closeGalleryPlayer(true);
             });
+
+            if (galleryBackButton) {
+                galleryBackButton.addEventListener("click", () => {
+                    if (document.referrer && document.referrer !== "") {
+                        window.history.back();
+                        return;
+                    }
+
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        window.location.href = "./index.html";
+                    }
+                });
+            }
 
             galleryTabs.forEach((tab) => {
                 tab.addEventListener("click", () => {
