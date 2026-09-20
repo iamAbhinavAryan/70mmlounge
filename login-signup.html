@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+        - primary meta tags
+    -->
+    <title>70MM Lounge | Login</title>
+    <meta name="title" content="70MM LOUNGE">
+    <meta name="description" content="Restaurant & Lounge">
+
+    <!--
+        - fav icon
+    -->
+     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">   
+
+     <!--
+        - google font
+     -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap" rel="stylesheet">
+
+      <!--
+        - coustom css link  
+      -->  
+        <style>
+          :root {
+            --auth-ink: #f5f7fa;
+            --auth-muted: #a8b0bc;
+            --auth-line: #3a3f49;
+            --auth-panel: #171819;
+            --auth-gold: #e2b659;
+          }
+
+          * { box-sizing: border-box; }
+
+          body {
+            display: grid;
+            width: 100%;
+            min-height: 100svh;
+            margin: 0;
+            padding: 20px;
+            color: var(--auth-ink);
+            background:
+              linear-gradient(rgba(8, 11, 16, 0.32), rgba(8, 11, 16, 0.44)),
+              url("./assets/images/club/club18.png") center / cover no-repeat;
+            font-family: "DM Sans", sans-serif;
+            place-items: center;
+          }
+
+          .auth-page {
+            display: flex;
+            flex-direction: column;
+            width: min(100%, 430px);
+            min-height: min(820px, calc(100vh - 40px));
+            padding: 42px 24px 26px;
+            background: rgba(23, 24, 25, 0.48);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            box-shadow: 0 22px 60px rgba(36, 43, 72, 0.18);
+          }
+
+          .auth-brand { margin-bottom: 28px; text-align: center; }
+
+          .auth-brand img {
+            display: inline-block;
+            width: 160px;
+            height: 50px;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            object-fit: contain;
+            filter: brightness(1.35) contrast(1.12) drop-shadow(0 0 12px rgba(226, 182, 89, 0.7));
+            box-shadow: none;
+          }
+
+          .auth-page > section {
+            transform: translateY(90px);
+          }
+
+          .auth-heading { margin: 0; font-size: clamp(2rem, 9vw, 2.55rem); line-height: 1; text-align: center; }
+          .auth-heading span { display: block; color: var(--auth-ink); font-size: 0.72em; font-weight: 400; }
+          .auth-subtitle { margin: 18px 0 28px; color: var(--auth-muted); font-size: 0.92rem; text-align: center; }
+
+          .auth-google-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 80%;
+            height: 48px;
+            margin: auto auto;
+            padding: 0 18px;
+            color: #000;
+            font: inherit;
+            font-weight: 700;
+            background: var(--auth-gold);
+            border: 1px solid var(--auth-gold);
+            border-radius: 8px;
+            cursor: pointer;
+            filter: brightness(1.16) saturate(1.08);
+            box-shadow: 0 0 18px rgba(226, 182, 89, 0.42);
+            transform: translateY(84px);
+          }
+
+          .auth-google-button:hover { filter: brightness(1.28) saturate(1.12); }
+
+          .auth-google-button:disabled { cursor: wait; filter: brightness(0.9); opacity: 0.8; }
+
+          .auth-google-button ion-icon { font-size: 22px; }
+
+          .auth-status {
+            min-height: 20px;
+            margin-top: 16px;
+            color: #ffb4b4;
+            font-size: 0.78rem;
+            text-align: center;
+          }
+
+          .auth-form { display: grid; gap: 15px; }
+
+          .auth-field {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            color: var(--auth-ink);
+            font: inherit;
+            background: transparent;
+            border: 1px solid var(--auth-line);
+            border-radius: 8px;
+            outline: 0;
+            transition: border-color 180ms ease, box-shadow 180ms ease;
+          }
+
+          .auth-field:focus { border-color: var(--auth-ink); box-shadow: 0 0 0 3px rgba(8, 13, 53, 0.08); }
+          .auth-field::placeholder { color: #767d91; }
+
+          .auth-forgot { justify-self: end; margin-top: -4px; color: var(--auth-ink); font-size: 0.76rem; text-decoration: none; }
+          .auth-forgot:hover { text-decoration: underline; }
+
+          .auth-primary,
+          .auth-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+            font: inherit;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+          }
+
+          .auth-primary { margin-top: 4px; color: #fff; background: var(--auth-ink); border: 1px solid var(--auth-ink); }
+          .auth-primary:hover { background: #12194d; }
+
+          .auth-switch { margin: 20px 0 0; color: var(--auth-muted); font-size: 0.78rem; text-align: center; }
+          .auth-switch button { padding: 0; color: var(--auth-ink); font: inherit; font-weight: 700; background: transparent; border: 0; cursor: pointer; }
+
+          .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 50px 0 16px;
+            color: var(--auth-ink);
+            font-size: 0.82rem;
+            white-space: nowrap;
+          }
+
+          .auth-divider::before,
+          .auth-divider::after { height: 1px; flex: 1; content: ""; background: #7f8494; }
+
+          .auth-social-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+          .auth-social { gap: 8px; font-size: 0.76rem; border: 1px solid var(--auth-line); }
+          .auth-social.facebook { color: #fff; background: #1976e8; border-color: #1976e8; }
+          .auth-social.google { color: var(--auth-ink); background: rgba(255, 255, 255, 0.96); }
+          .auth-social strong { font-size: 1rem; }
+
+          .auth-status { min-height: 18px; margin: 12px 0 0; color: #9b3c3c; font-size: 0.76rem; text-align: center; }
+
+          .auth-page.signup-mode .auth-heading span { font-size: 0.6em; }
+
+          @media (max-width: 480px) {
+            body { min-height: 100svh; padding: 0; }
+            .auth-page {
+              width: 100vw;
+              min-height: 100svh;
+              padding: 32px 18px 22px;
+              border-radius: 0;
+            }
+            .auth-divider { margin-top: 40px; }
+          }
+        </style>
+</head>
+
+<body>
+      <main class="auth-page" id="auth-page">
+        <header class="auth-brand">
+          <img src="./assets/images/logo.svg" alt="70MM Lounge logo">
+        </header>
+
+        <section aria-labelledby="auth-heading">
+          <h2 class="auth-heading" id="auth-heading">Welcome to <span>70mm Lounge</span></h2>
+          <p class="auth-subtitle" id="auth-subtitle">Sign in to continue your lounge experience.</p>
+          <button class="auth-google-button" id="google-login-button" type="button" aria-label="Continue with Google">
+            <ion-icon name="logo-google" aria-hidden="true"></ion-icon>
+            <span>Continue with Google</span>
+          </button>
+          <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
+        </section>
+      </main>
+
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+      <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyCUUEg54qGG4WEyWCIUzwYD9rq87qkjTs4",
+          authDomain: "mm-lounge-60dc3.firebaseapp.com",
+          databaseURL: "https://mm-lounge-60dc3-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "mm-lounge-60dc3",
+          storageBucket: "mm-lounge-60dc3.firebasestorage.app",
+          messagingSenderId: "124520081947",
+          appId: "1:124520081947:web:ad11c34c54ba9cef23e6be"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
+        const googleLoginButton = document.querySelector("#google-login-button");
+        const authStatus = document.querySelector("#auth-status");
+
+        googleLoginButton.addEventListener("click", async () => {
+          googleLoginButton.disabled = true;
+          authStatus.textContent = "Opening Google login...";
+          authStatus.style.color = "var(--auth-muted)";
+
+          try {
+              const result = await auth.signInWithPopup(googleProvider);
+              const user = result.user;
+              const userProfile = {
+                uid: user.uid,
+                name: user.displayName || "Google user",
+                email: user.email || "",
+                image: user.photoURL || "",
+                lastLoginAt: firebase.database.ServerValue.TIMESTAMP
+              };
+
+              console.log("Google login successful:", userProfile);
+              await firebase.database().ref(`users/${user.uid}`).update(userProfile);
+              console.log("User profile saved to Firebase Database:", `users/${user.uid}`);
+            window.location.href = "./index.html";
+          } catch (error) {
+            authStatus.style.color = "#ffb4b4";
+            authStatus.textContent = error.code === "auth/popup-closed-by-user"
+              ? "Google login was cancelled."
+              : error.message;
+            googleLoginButton.disabled = false;
+          }
+        });
+      </script>
+</body>
+</html>

@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--
+        - primary meta tags
+    -->
+    <title>70MM LOUNGE</title>
+    <meta name="title" content="70MM LOUNGE">
+    <meta name="description" content="Restaurant & Lounge">
+
+    <!--
+        - fav icon
+    -->
+     <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">   
+
+     <!--
+        - google font
+     -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Forum&display=swap" rel="stylesheet">
+
+      <!--
+        - coustom css link  
+      -->  
+        <link rel="stylesheet" href="./assets/css/style.css">
+
+        <!--
+            - preload images
+        -->
+        <link rel="preload" as="image" href="./assets/images/hero-slider-1.jpg">
+        <link rel="preload" as="image" href="./assets/images/hero-slider-2.jpg">
+        <link rel="preload" as="image" href="./assets/images/hero-slider-3.jpg">
+
+        <style>
+            .mobile-logout-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-top: 15px;
+                padding: 9px 18px;
+                color: var(--smoky-black-1);
+                font: inherit;
+                font-size: 1.3rem;
+                font-weight: 700;
+                background: var(--gold-crayola);
+                border: 1px solid var(--gold-crayola);
+                border-radius: 6px;
+                cursor: pointer;
+            }
+
+            .mobile-logout-btn ion-icon { font-size: 18px; }
+        </style>
+
+</head>
+
+<body id="top">
+
+        <!--
+            - preloader
+        -->
+
+        <div class="preload" data-preaload>
+            <div class="circle"></div>
+            <p class="text">70MM LOUNGE</p>
+        </div>
+
+
+
+
+
+        <!--
+            - Top Bar
+        -->
+        
+        <div class="topbar">
+            <div class="container">
+
+                <address class="topbar-item">
+                    <div class="icon">
+                        <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <a href="https://share.google/oNBAjAu1UXtW1NMDn">
+                        <span class="span">
+                            70mm Lounge, Dumarjor, Chas, Bokaro, 827013
+                        </span>
+                    </a>
+                </address>
+
+                <div class="separator"></div>
+
+                <div class="topbar-item item-2">
+                    <div class="icon">
+                        <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <span class="span">Daily : 3.00 pm to 11.00 pm</span>
+                </div>
+
+                <a href="tel:+918987477773" class="topbar-item link">
+                    <div class="icon">
+                        <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <span class="span">+91 8987477773</span>
+                </a>
+
+                <div class="separator"></div>
+
+                <a href="mailto:70mmlounge8bokaro@gmail.com" class="topbar-item link">
+                    <div class="icon">
+                        <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                    </div>
+
+                    <span class="span">70mmlounge8bokaro@gmail.com</span>
+                </a>
+
+            </div>
+        </div>
+
+
+
+
+
+        <!--
+            Header
+        -->
+
+        <header class="header" data-header>
+            <div class="container">
+
+                <a href="#">
+                    <img src="./assets/images/logo.svg" width="160" height="50" alt="70mm lounge - Home">
+                </a>
+
+                <nav class="navbar" data-navbar>
+
+                    <button class="close-btn" aria-level="close menu" data-nav-toggler>
+                        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+                    </button>
+
+                <a href="#">
+                    <img src="./assets/images/logo.svg" width="160" height="50" alt="70mm lounge - Home">
+                </a>
+
+                <ul class="navbar-list">
+
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-link hover-underline">
+                            <div class="separator"></div>
+
+                            <span class="span">Home</span>
+                        </a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a href="menu.html" class="navbar-link hover-underline">
+                            <div class="separator"></div>
+
+                            <span class="span">Menus</span>
+                        </a>
+                    </li>    
+                    
+                    <li class="navbar-item">
+                        <a href="#about" class="navbar-link hover-underline">
+                            <div class="separator"></div>
+
+                            <span class="span">About Us</span>
+                        </a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a href="#chefs" class="navbar-link hover-underline">
+                            <div class="separator"></div>
+
+                            <span class="span">Our Chefs</span>
+                        </a>
+                    </li>
+
+                    <li class="navbar-item">
+                        <a href="gallery.html" class="navbar-link hover-underline">
+                            <div class="separator"></div>
+
+                            <span class="span">Gallery</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="text-center">
+                    <p class="headline-1 navbar-title">Visit Us</p>
+
+                    <address class="body-4">
+                        70mm Lounge, Dumarjor, Chas, Bokaro, 827013
+                        Near Hall of Knots
+                    </address>
+
+                    <p class="body-4 navbar-text">Open 03:00pm to 11:00pm</p>
+
+                    <a href="mailto:70mmlounge8bokaro@gmail.com" class=" body-4 sidebar-link">70mmlounge8bokaro@gmail.com</a>
+
+                    <div class="separator"></div>
+
+                    <p class="contact-label">Booking Request</p>
+
+                    <a href="tel:+918987477773" class="body-1 contact-number hover-underline">
+                        +91 8987477773
+                    </a>
+
+                    <button class="mobile-logout-btn" id="mobile-logout-btn" type="button">
+                        <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+                        <span>Logout</span>
+                    </button>
+                </div>
+
+                </nav>
+
+                <a href="index.html#reservation" class="btn btn-secondary">
+                    <span class="text text-1">Find A Table</span>
+
+                    <span class="text text-2" aria-hidden="true">Find A Table</span>
+                </a>
+
+                <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+                    <span class="line line-1"></span>
+                    <span class="line line-2"></span>
+                    <span class="line line-3"></span>
+                </button>
+
+                <div class="overlay" data-nav-toggler data-overlay></div>
+
+            </div>
+        </header>
+
+
+
+
+
+        <main>
+            <article>
+
+                <!--
+                    - #HERO
+                -->
+
+                <section class="hero text-center" aria-label="home" id="home">
+
+                    <ul class="hero-slider" data-hero-slider>
+
+                        <li class="slider-item active" data-hero-slider-item>
+
+                            <div class="slider-bg">
+                                <img src="./assets/images/hero-slider-1.jpg" width="1880" height="950" alt="" class="img-cover">
+                            </div>
+
+                            <p class="label-2 section-subtitle slider-reveal">Tradational & Hygine</p>
+
+                            <h1 class="display-1 hero-title slider-reveal">
+                                For the love of <br>
+                                delicious food
+                            </h1>
+
+                            <p class="body-2 hero-text slider-reveal">
+                                Come with family & feel the joy of mouthwatering food
+                            </p>
+
+                            <a href="menu.html" class="btn btn-primary slider-reveal">
+                                <span class="text text-1">View Our Menu</span>
+
+                                <span class="text text-2" aria-hidden="true">View Our Menu</span>
+                            </a>
+
+                        </li>
+
+                        <li class="slider-item" data-hero-slider-item>
+
+                            <div class="slider-bg">
+                                <img src="./assets/images/hero-slider-2.jpg" width="1880" height="950" alt="" class="img-cover">
+                            </div>
+
+                            <p class="label-2 section-subtitle slider-reveal">delightful experience</p>
+
+                            <h1 class="display-1 hero-title slider-reveal">
+                                Flavors Inspired by <br>
+                                the Seasons
+                            </h1>
+
+                            <p class="body-2 hero-text slider-reveal">
+                                Come with family & feel the joy of mouthwatering food
+                            </p>
+
+                            <a href="#" class="btn btn-primary slider-reveal">
+                                <span class="text text-1">View Our Menu</span>
+
+                                <span class="text text-2" aria-hidden="true">View Our Menu</span>
+                            </a>
+
+                        </li>
+
+                        <li class="slider-item" data-hero-slider-item>
+
+                            <div class="slider-bg">
+                                <img src="./assets/images/hero-slider-3.jpg" width="1880" height="950" alt="" class="img-cover">
+                            </div>
+
+                            <p class="label-2 section-subtitle slider-reveal">amazing & delicious</p>
+
+                            <h1 class="display-1 hero-title slider-reveal">
+                                Where every flavor <br>
+                                tells a story
+                            </h1>
+
+                            <p class="body-2 hero-text slider-reveal">
+                                Come with family & feel the joy of mouthwatering food
+                            </p>
+
+                            <a href="#" class="btn btn-primary slider-reveal">
+                                <span class="text text-1">View Our Menu</span>
+
+                                <span class="text text-2" aria-hidden="true">View Our Menu</span>
+                            </a>
+
+                        </li>
+                        
+                    </ul>
+
+                    <button class="slider-btn prev" aria-label="slide to previous" data-prev-btn>
+                        <ion-icon name="chevron-back"></ion-icon>
+                    </button>
+
+                    <button class="slider-btn next" aria-label="slide to next" data-next-btn>
+                        <ion-icon name="chevron-forward"></ion-icon>
+                    </button>
+
+                    <script src="https://elfsightcdn.com/platform.js" async></script>
+                    <div class="elfsight-app-6eb74150-1547-40e4-a43d-b6bd9ee21a72" data-elfsight-app-lazy></div>
+
+                    <a href="#" class="hero-whatsapp-btn" data-chat-trigger aria-label="Open chat">
+                        <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+                    </a>
+
+                    <div class="hero-chat" data-chat-panel aria-hidden="true">
+                        <div class="hero-chat-header">
+                            <button class="hero-chat-close" type="button" data-chat-close aria-label="Close chat">
+                                <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+                            </button>
+                            <div class="hero-chat-brand">
+                                <div class="hero-chat-logo-wrap">
+                                    <img src="./assets/images/logo1.png" width="50" height="50" class="hero-chat-logo" alt="70mm Lounge">
+                                </div>
+                                <div>
+                                    <strong>70mm Lounge</strong>
+                                    <p>Typically replies in minutes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hero-chat-messages">
+                            <div class="hero-chat-message">Hi there 👋<br><br>How can I help you?</div>
+                        </div>
+                        <form class="hero-chat-form" data-chat-form>
+                            <div class="hero-chat-suggestions" aria-label="Quick suggestions">
+                                <button type="button" class="hero-chat-suggestion" data-chat-suggestion="Contacts">Contacts</button>
+                                <button type="button" class="hero-chat-suggestion" data-chat-suggestion="Menu">Menu</button>
+                                <button type="button" class="hero-chat-suggestion" data-chat-suggestion="Booking">Booking</button>
+                                <button type="button" class="hero-chat-suggestion" data-chat-suggestion="Blogs">Blogs</button>
+                            </div>
+                            <div class="hero-chat-input-row">
+                                <input type="text" name="message" placeholder="Enter Your Message..." aria-label="Your message" autocomplete="off">
+                                <button type="submit" aria-label="Send message">
+                                    <ion-icon name="send" aria-hidden="true"></ion-icon>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <a href="tel:+918987477773" class="hero-call-btn" aria-label="Call 70MM Lounge">
+                        <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+                    </a>
+
+                    <a href="#reservation" class="hero-btn has-after">
+                        <img src="./assets/images/hero-icon.png" width="48" height="48" alt="booking icon">
+
+                        <span class="label-2 text-center span">Book A Table</span>
+                    </a>
+
+                </section>
+
+
+
+
+
+                <!--
+                    -#SERVICE
+                -->
+
+                <section class="section service bg-black-10 text-center" aria-label="service">
+                    <div class="container">
+
+                        <p class="section-subtitle label-2">Flavors For Royalty</p>
+
+                        <h2 class="headline-1 section-title">We Offer Top Notch</h2>
+
+                        <p class="section-text">
+                            Crisp bites and warm starters Made to share at the table Fresh herbs and bold dips Start your meal right here.
+                        </p>
+
+                        <ul class="grid-list">
+
+                            <li>
+                                <div class="service-card">
+
+                                    <a href="#" class="has-before hover:shine">
+                                        <figure class="card-banner img-holder" style="--width: 285; --height: 336;">
+                                            <img src="./assets/images/menu/service-1.png" width="285" height="336" loading="lazy" alt="Breakfast" 
+                                            class="img-cover">
+                                        </figure>
+                                    </a>
+
+                                    <div class="card-content">
+
+                                        <h3 class="title-4 card-title">
+                                            <a href="#">Starter</a>
+                                        </h3>
+
+                                        <a href="menu.html?category=tandoor-tikka" class="btn-text hover-underline label-2">View Menu</a>
+
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="service-card">
+
+                                    <a href="#" class="has-before hover:shine">
+                                        <figure class="card-banner img-holder" style="--width: 285; --height: 336;">
+                                            <img src="./assets/images/service-2.jpg" width="285" height="336" loading="lazy" alt="Appetizers" 
+                                            class="img-cover">
+                                        </figure>
+                                    </a>
+
+                                    <div class="card-content">
+
+                                        <h3 class="title-4 card-title">
+                                            <a href="#">Appetizers</a>
+                                        </h3>
+
+                                        <a href="menu.html?category=appetizers" class="btn-text hover-underline label-2">View Menu</a>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="service-card">
+
+                                    <a href="#" class="has-before hover:shine">
+                                        <figure class="card-banner img-holder" style="--width: 285; --height: 336;">
+                                            <img src="./assets/images/service-3.jpg" width="285" height="336" loading="lazy" alt="Drinks" 
+                                            class="img-cover">
+                                        </figure>
+                                    </a>
+
+                                    <div class="card-content">
+
+                                        <h3 class="title-4 card-title">
+                                            <a href="#">Drinks</a>
+                                        </h3>
+
+                                        <a href="menu.html?category=mocktails" class="btn-text hover-underline label-2">View Menu</a>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <img src="./assets/images/shape-1.png" width="246" height="412" loading="lazy" alt="shape"
+                        class="shape shape-1 move-anim">
+                        <img src="./assets/images/shape-2.png" width="343" height="345" loading="lazy" alt="shape"
+                        class="shape shape-2 move-anim">
+
+                    </div>
+                </section>
+
+
+
+
+
+                <!--
+                    -#ABOUT
+                -->
+
+                <section class="section about text-center" aria-labelledby="about-label" id="about">
+                    <div class="container">
+
+                        <div class="about-content">
+
+                            <p class="label-2 section-subtitle" id="about-label">Our Story</p>
+
+                            <h2 class="headline-1 section-title">Every Flavor Tells a Story</h2>
+
+                            <p  class="section-text">
+                                Dive into a world of vibrant energy and unforgettable nights. 70mm Lounge combines stunning visuals, electrifying atmosphere, and curated delights to create the perfect party destination. Great times are always on the menu. Join the celebration!
+                            </p>
+
+                            <div class="contact-label">Book Through Call</div>
+
+                            <a href="tel:+918987477773" class="body-1 contact-number hover-underline">+91 8987477773</a>
+
+                            <a href="gallery.html" class="btn btn-primary">
+                                <span class="text text-1">Read More</span>
+
+                                <span class="text text-2" aria-hidden="true">Read More</span>
+                            </a>
+
+                        </div>
+
+                        <figure  class="about-banner">
+
+                            <img src="./assets/images/about-banner.png" width="1200" height="1200" loading="lazy" alt="about banner"
+                            class="w-100" data-parallax-item data-parallax-speed="1">
+
+                            <div class="abs-img abs-img-1 has-before" data-parallax-item data-parallax-speed="1.75">
+                                <img src="./assets/images/about-abs-image.jpg" width="285" height="285" loading="lazy" alt=""
+                                class="w-100">
+                            </div>
+
+                            <div class="abs-img abs-img-2 has-before">
+                                <img src="./assets/images/badge-2.png" width="133" height="134" loading="lazy" alt="">
+                            </div>
+
+                        </figure>
+
+                        <img src="./assets/images/shape-3.png" width="197" height="194" loading="lazy" alt="" class="shape">
+
+                    </div>
+                </section>
+
+
+
+
+
+                <!--
+                    - #Speacial Dish
+                -->
+
+                <section class="special-dish text-center" aria-labelledby="dish-label">
+
+                    <div class="special-dish-banner">
+                        <img src="./assets/images/kadaknath.png" width="900" height="900" loading="lazy" alt="special dish"
+                        class="img-cover">
+                    </div>
+
+                    <div class="special-dish-content bg-black-10">
+                        <div class="container">
+
+                            <img src="./assets/images/badge-1.png" width="28" height="41" loading="lazy" alt="badge" class="abs-img">
+
+                            <p class="section-subtitle label-2">Special Dish</p>
+
+                            <h2 class="headline-1 section-title">Kadaknath</h2>
+
+                            <p class="section-text">
+                                 A rare Indian chicken breed from Jhabua, Madhya Pradesh, known as 'Kali Masi' because its feathers, meat, and bones are completely black due to high melanin content. It has high protein (over 25%), low fat, and rich iron and vitamin levels.
+                            </p>
+
+                            <div class="wrapper">
+                                <!-- <del class="del body-3">$40.00</del> -->
+
+                                <span class="span body-1">₹999.00</span>
+                            </div>
+
+                            <!-- <a href="#" class="btn btn-primary">
+                                <span class="text text-1">View All Menu</span>
+
+                                <span class="text text-2" aria-hidden="true">View All Menu</span>
+                            </a> -->
+
+                        </div>
+                    </div>
+
+                    <img src="./assets/images/shape-4.png" width="179" height="359" loading="lazy" alt="" class="shape shape-1">
+
+                    <img src="./assets/images/shape-9.png" width="351" height="462" loading="lazy" alt="" class="shape shape-2">
+
+                </section>
+
+
+
+
+
+                <!--
+                    - #MENU
+                -->
+
+                <section class="section menu" aria-label="menu-label" id="menu">
+                    <div class="container">
+
+                        <p class="section-subtitle text-center label-2">Special Selection</p>
+
+                        <h2 class="headline-1 section-title text-center">Delicious Menu</h2>
+
+                        <ul class="grid-list">
+
+                            <li class="menu-item" data-category="main-course-non-veg">
+                                <div class="menu-card hover:card">
+
+                                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                                        <img src="./assets/images/menu/chickenbuttermasala.png" width="100" height="100" loading="lazy" alt="Greek Salad"
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div>
+
+                                        <div class="title-wrapper">
+                                            <h3 class="title-3">
+                                                <a href="#" class="card-title">Chicken Butter Masala</a>
+                                            </h3>
+
+                                        </div>
+
+                                        <details class="dish-description">
+                                            <summary class="description-toggle" aria-label="Show Chicken Butter Masala description">
+                                                <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+                                            </summary>
+                                            <div class="description-bubble" style="--bubble-image: url('../images/menu/chickenbuttermasala.png');">
+                                            <p class="card-text label-1">
+                                                Chicken Butter Masala is a classic Indian dish made with tender chicken cooked in a rich and creamy tomato-based sauce, flavored with aromatic spices and butter. It is typically served with naan or rice and is known for its deliciously savory and slightly tangy taste.
+                                            </p>
+                                            <div class="description-meta">
+                                                <span class="price-option">Price<strong>₹360</strong></span>
+                                                <span class="price-option">Pieces<strong>4</strong></span>
+                                            </div>
+                                            </div>
+                                        </details>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                            <li class="menu-item" data-category="main-course-veg">
+                                <div class="menu-card hover:card">
+
+                                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                                        <img src="./assets/images/menu/palakpaneer.png" width="100" height="100" loading="lazy" alt="Greek Salad"
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div>
+
+                                        <div class="title-wrapper">
+                                            <h3 class="title-3">
+                                                <a href="#" class="card-title">Palak Paneer</a>
+                                            </h3>
+
+                                        </div>
+
+                                        <details class="dish-description">
+                                            <summary class="description-toggle" aria-label="Show Lasagne description">
+                                                <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+                                            </summary>
+                                            <div class="description-bubble" style="--bubble-image: url('../images/menu/palakpaneer.png');">
+                                            <p class="card-text label-1">
+                                                Palak paneer is a popular North Indian vegetarian dish made with soft cubes of paneer (Indian cottage cheese) simmered in a smooth, spiced puréed spinach gravy.
+                                            </p>
+                                            <div class="description-meta">
+                                                <span class="price-option">FULL<strong>₹210</strong></span>
+                                                <!-- <span class="price-option">HALF<strong>₹15.00</strong></span> -->
+                                            </div>
+                                            </div>
+                                        </details>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                            <li class="menu-item" data-category="main-course-non-veg">
+                                <div class="menu-card hover:card">
+
+                                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                                        <img src="./assets/images/menu/chickenhandi.png" width="100" height="100" loading="lazy" alt="Greek Salad"
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div>
+
+                                        <div class="title-wrapper">
+                                            <h3 class="title-3">
+                                                <a href="#" class="card-title">Chicken Handi</a>
+                                            </h3>
+
+                                        </div>
+
+                                        <details class="dish-description">
+                                            <summary class="description-toggle" aria-label="Show Chicken Handi description">
+                                                <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+                                            </summary>
+                                            <div class="description-bubble" style="--bubble-image: url('../images/menu/chickenhandi.png');">
+                                            <p class="card-text label-1">
+                                                Chicken Handi is a flavorful Indian dish made with tender chicken pieces cooked in a rich, spiced sauce, traditionally prepared in a handi (a deep, narrow-mouthed cooking vessel). It is known for its aromatic spices and creamy texture, often served with naan or rice.
+                                            </p>
+                                            <div class="description-meta">
+                                                <span class="price-option">Full(8)Pcs<strong>₹600</strong></span>
+                                                <span class="price-option">Half(4)Pcs<strong>₹380</strong></span>
+                                            </div>
+                                            </div>
+                                        </details>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                            <li class="menu-item" data-category="biryani">
+                                <div class="menu-card hover:card">
+
+                                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                                        <img src="./assets/images/menu/hyderabadichickenbiryani.png" width="100" height="100" loading="lazy" alt="Hyderabadi Chicken Biryani"
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div>
+
+                                        <div class="title-wrapper">
+                                            <h3 class="title-3">
+                                                <a href="#" class="card-title">Hyderabadi Chicken Biryani</a>
+                                            </h3>
+
+                                        </div>
+
+                                        <details class="dish-description">
+                                            <summary class="description-toggle" aria-label="Show Hyderabadi Chicken Biryani description">
+                                                <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+                                            </summary>
+                                            <div class="description-bubble" style="--bubble-image: url('../images/menu/hyderabadichickenbiryani.png');">
+                                            <p class="card-text label-1">
+                                                A flavorful and aromatic rice dish made with basmati rice, marinated chicken, and a blend of spices, often served with raita or salad. It is a popular dish from the Indian state of Hyderabad.
+                                            </p>
+                                            </p>
+                                            <div class="description-meta">
+                                                <span class="price-option">FULL<strong>₹250.00</strong></span>
+                                                <!-- <span class="price-option">HALF<strong>₹15.00</strong></span> -->
+                                            </div>
+                                            </div>
+                                        </details>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                            <li class="menu-item" data-category="indian-breads">
+                                <div class="menu-card hover:card">
+
+                                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                                        <img src="./assets/images/menu/garlicnaan.png" width="100" height="100" loading="lazy" alt="Garlic Naan"
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div>
+
+                                        <div class="title-wrapper">
+                                            <h3 class="title-3">
+                                                <a href="#" class="card-title">Garlic Naan</a>
+                                            </h3>
+
+                                        </div>
+
+                                        <details class="dish-description">
+                                            <summary class="description-toggle" aria-label="Show Garlic Naan description">
+                                                <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+                                            </summary>
+                                            <div class="description-bubble" style="--bubble-image: url('../images/menu/garlicnaan.png');">
+                                            <p class="card-text label-1">
+                                                Garlic Naan is a delicious Indian flatbread infused with fresh garlic and cooked in a tandoor oven. It is made from refined flour and is known for its soft texture and slightly chewy consistency. Garlic Naan can be served plain or stuffed with various fillings like cheese, garlic, or minced meat.
+                                            </p>
+                                            </p>
+                                            <div class="description-meta">
+                                                <span class="price-option"><strong>₹60.00</strong></span>
+                                                <!-- <span class="price-option">HALF<strong>₹15.00</strong></span> -->
+                                            </div>
+                                            </div>
+                                        </details>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                            <li class="menu-item" data-category="mocktails">
+                                <div class="menu-card hover:card">
+
+                                    <figure class="card-banner img-holder" style="--width: 100; --height: 100;">
+                                        <img src="./assets/images/menu/virginmojito.png" width="100" height="100" loading="lazy" alt="Greek Salad"
+                                        class="img-cover">
+                                    </figure>
+
+                                    <div>
+
+                                        <div class="title-wrapper">
+                                            <h3 class="title-3">
+                                                <a href="" class="card-title">Virgin Mojito</a>
+                                            </h3>
+
+                                        </div>
+
+                                        <details class="dish-description">
+                                            <summary class="description-toggle" aria-label="Show Opu Fish description">
+                                                <ion-icon name="information-circle-outline" aria-hidden="true"></ion-icon>
+                                            </summary>
+                                            <div class="description-bubble" style="--bubble-image: url('../images/menu/virginmojito.png');">
+                                            <p class="card-text label-1">
+                                                Fresh lime juice, sugar, club soda, and mint. It balances sweet, tart citrus, and cool herbal flavors into a refreshing, fizzy drink
+                                            </p>
+                                            <div class="description-meta">
+                                                <span class="price-option">FULL<strong>₹150.00</strong></span>
+                                                <span class="price-option">HALF<strong>₹250.00</strong></span>
+                                            </div>
+                                            </div>
+                                        </details>
+
+                                    </div>
+                                    
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <!-- <p class="menu-text text-center">
+                            During winter daily from <span class="span">7:00 pm</span> to <span class="span">9:00 pm</span>
+                        </p> -->
+
+                        <a href="menu.html" class="btn btn-primary">
+                            <span class="text text-1">View All Menu</span>
+
+                            <span class="text text-2" aria-hidden="true">View All Menu</span>
+                        </a>
+
+                        <img src="./assets/images/shape-5.png" width="921" height="1036" loading="lazy" alt="shape"
+                        class="shape shape-2 move-anim">
+                        <img src="./assets/images/shape-6.png" width="343" height="345" loading="lazy" alt="shape"
+                        class="shape shape-3 move-anim">
+
+                    </div>
+                </section>
+
+
+
+
+
+                <!--
+                    - #TESTIMONIAL
+                -->
+
+                <section class="section testi text-center has-bg-image"
+                    style="background-image: url('./assets/images/testimonial-bg.jpg')" aria-label="testimonials">
+                    <div class="container">
+
+                        <div class="quote">”</div>
+
+                        <p class="headline-2 testi-text">
+                            We were so excited for you to dine with us and hear what you thought! Your feedback is what we’ve been waiting for, and we appreciate you sharing your experience. We can't wait to serve you again!
+                        </p>
+
+                        <div class="wrapper">
+                            <div class="separator"></div>
+                            <div class="separator"></div>
+                            <div class="separator"></div>
+                        </div>
+
+                        <div>
+                            <!-- Elfsight Google Reviews | Untitled Google Reviews -->
+                            <script src="https://elfsightcdn.com/platform.js" async></script>
+                            <div class="elfsight-app-eb4dfb49-c336-41c9-ad6f-5e98bf2da8b8" data-elfsight-app-lazy></div>
+                        </div>
+
+                        <a href="https://www.google.com/search?q=70mm+lounge&oq=&gs_lcrp=EgZjaHJvbWUqCQgAECMYJxjqAjIJCAAQIxgnGOoCMgkIARAjGCcY6gIyCQgCECMYJxjqAjIJCAMQIxgnGOoCMgkIBBAjGCcY6gIyDwgFEC4YJxjHARjqAhjRAzIJCAYQRRg7GMIDMgkIBxBFGDsYwgPSAQw4MDIzNzgxOWowajeoAgiwAgHxBWNBYRjnx07o&sourceid=chrome&source=chrome.ob&ie=UTF-8#lrd=0x39f4210054107883:0x991ef4d12a67898d,3,,,," class="btn btn-secondary review-btn">
+                    <span class="text text-1">Write a Review</span>
+
+                    <span class="text text-2" aria-hidden="true">Write a Review</span>
+                </a>
+
+                        <!-- <div class="profile">
+                            <img src="./assets/images/testi-avatar.jpg" width="100" height="100" loading="lazy" alt="Sam Jhonson"
+                            class="img">
+
+                            <p class="label-2 profile-name">Sam Jhonson</p>
+                        </div> -->
+
+                    </div>
+                </section>
+
+
+
+
+
+                <!--
+                    - #RESERVATION
+                -->
+
+                <section class="reservation" id="reservation">
+                    <div class="container">
+
+                        <div class="form reservation-form bg-black-10">
+
+                            <form action="https://formspree.io/f/mwlknbwy" method="POST" class="form-left">
+
+                                <h2 class="headline-1 text-center">Online Reservation</h2>
+
+                                <p class="form-text text-center">
+                                    Booking request <br> <a href="tel:+918987477773" class="link">+91 8987477773 </a>
+                                    <br> or fill out the order form
+                                </p>
+
+                                <div class="input-wrapper">
+                                    <input type="text" name="name" placeholder="Your Name" autocomplete="off" class="input-field" required>
+
+                                    <input type="tel" name="phone" placeholder="Phone Number" autocomplete="off" class="input-field" required>
+                                </div>
+
+                                <div class="input-wrapper">
+
+                                    <div class="icon-wrapper custom-select reservation-select">
+                                        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                                        <button type="button" class="input-field custom-select-trigger reservation-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                                            <span class="custom-select-value">1 Person</span>
+                                            <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+                                        </button>
+
+                                        <select name="person" class="sr-only" required aria-hidden="true">
+                                            <option value="1-person" selected>1 Person</option>
+                                            <option value="2-person">2 Person</option>
+                                            <option value="3-person">3 Person</option>
+                                            <option value="4-person">4 Person</option>
+                                            <option value="5-person">5 Person</option>
+                                            <option value="6-person">6 Person</option>
+                                            <option value="7-person">7 Person</option>
+                                        </select>
+
+                                        <ul class="custom-select-menu reservation-select-menu" role="listbox" aria-label="Select number of persons">
+                                            <li class="custom-option is-selected" data-value="1-person" role="option" aria-selected="true">1 Person</li>
+                                            <li class="custom-option" data-value="2-person" role="option" aria-selected="false">2 Person</li>
+                                            <li class="custom-option" data-value="3-person" role="option" aria-selected="false">3 Person</li>
+                                            <li class="custom-option" data-value="4-person" role="option" aria-selected="false">4 Person</li>
+                                            <li class="custom-option" data-value="5-person" role="option" aria-selected="false">5 Person</li>
+                                            <li class="custom-option" data-value="6-person" role="option" aria-selected="false">6 Person</li>
+                                            <li class="custom-option" data-value="7-person" role="option" aria-selected="false">7 Person</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="icon-wrapper custom-date-picker" data-custom-date-picker>
+                                        <ion-icon name="calendar-clear-outline" aria-hidden="true"></ion-icon>
+
+                                        <button type="button" class="input-field custom-date-trigger" aria-haspopup="dialog" aria-expanded="false">
+                                            <span class="custom-date-value">Date</span>
+                                            <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+                                        </button>
+
+                                        <input type="hidden" name="reservation-date" class="reservation-date-input" required>
+
+                                        <div class="custom-date-panel" role="dialog" aria-label="Select reservation date">
+                                            <div class="custom-date-header">
+                                                <button type="button" class="custom-date-nav" data-date-nav="prev" aria-label="Previous month">
+                                                    <span aria-hidden="true">&#8592;</span>
+                                                </button>
+                                                <div class="custom-date-month" data-date-month></div>
+                                                <button type="button" class="custom-date-nav" data-date-nav="next" aria-label="Next month">
+                                                    <span aria-hidden="true">&#8594;</span>
+                                                </button>
+                                            </div>
+                                            <div class="custom-date-weekdays">
+                                                <span>Sun</span>
+                                                <span>Mon</span>
+                                                <span>Tue</span>
+                                                <span>Wed</span>
+                                                <span>Thu</span>
+                                                <span>Fri</span>
+                                                <span>Sat</span>
+                                            </div>
+                                            <div class="custom-date-days" data-date-days></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="icon-wrapper custom-select reservation-select">
+                                        <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                                        <button type="button" class="input-field custom-select-trigger reservation-select-trigger" aria-haspopup="listbox" aria-expanded="false">
+                                            <span class="custom-select-value">03 : 00 pm</span>
+                                            <ion-icon name="chevron-down" aria-hidden="true"></ion-icon>
+                                        </button>
+
+                                        <select name="time" class="sr-only" required aria-hidden="true">
+                                            <option value="03:00pm" selected>03 : 00 pm</option>
+                                            <option value="04:00pm">04 : 00 pm</option>
+                                            <option value="05:00pm">05 : 00 pm</option>
+                                            <option value="06:00pm">06 : 00 pm</option>
+                                            <option value="07:00pm">07 : 00 pm</option>
+                                            <option value="08:00pm">08 : 00 pm</option>
+                                            <option value="09:00pm">09 : 00 pm</option>
+                                            <option value="10:00pm">10 : 00 pm</option>
+                                            <option value="11:00pm">11 : 00 pm</option>
+                                        </select>
+
+                                        <ul class="custom-select-menu reservation-select-menu" role="listbox" aria-label="Select time">
+                                            <li class="custom-option is-selected" data-value="03:00pm" role="option" aria-selected="true">03 : 00 pm</li>
+                                            <li class="custom-option" data-value="04:00pm" role="option" aria-selected="false">04 : 00 pm</li>
+                                            <li class="custom-option" data-value="05:00pm" role="option" aria-selected="false">05 : 00 pm</li>
+                                            <li class="custom-option" data-value="06:00pm" role="option" aria-selected="false">06 : 00 pm</li>
+                                            <li class="custom-option" data-value="07:00pm" role="option" aria-selected="false">07 : 00 pm</li>
+                                            <li class="custom-option" data-value="08:00pm" role="option" aria-selected="false">08 : 00 pm</li>
+                                            <li class="custom-option" data-value="09:00pm" role="option" aria-selected="false">09 : 00 pm</li>
+                                            <li class="custom-option" data-value="10:00pm" role="option" aria-selected="false">10 : 00 pm</li>
+                                            <li class="custom-option" data-value="11:00pm" role="option" aria-selected="false">11 : 00 pm</li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                <textarea name="message" placeholder="Message" autocomplete="off" class="input-field" required></textarea>
+
+                                <button type="submit" id="reservationSubmitBtn" class="btn btn-secondary" disabled>
+                                    <span class="text text-1">Book A Table</span>
+
+                                    <span class="text text-2" aria-hidden="true">Book A Table</span>
+                                </button>
+
+                                <p id="reservationSuccessMsg" class="reservation-success-msg" role="status" aria-live="polite">Reservation sent</p>
+
+                            </form>
+
+                            <div class="form-right text-center" style="background-image: url('./assets/images/form-pattern.png')">
+
+                                <!-- <h2 class="headline-1 text-center">Contact Us</h2>
+
+                                <p class="contact-label">Booking Request</p>
+
+                                <a href="tel:+918987477773" class="body-1 contact-number hover-underline">+91 8987477773</a>
+
+                                <div class="separator"></div>
+
+                                <p class="contact-label">Location</p>
+
+                                <address class="body-4">
+                                    70mm Lounge, Dumarjor, <br/> 
+                                    Chas, Bokaro, 827013
+                                </address>
+
+                                <p class="contact-label">Lunch Time</p>
+
+                                <p class="body-4">
+                                    Monday to Sunday <br>
+                                    03.00 pm - 11.00pm
+                                </p>
+
+                                <p class="contact-label">Dinner Time</p>
+
+                                <p class="body-4">
+                                    Monday to Sunday <br>
+                                    02.00 pm - 11.00pm
+                                </p> -->
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </section>
+
+
+
+
+
+                <!--
+                    - #FEATURES
+                -->
+
+                <section class="section features text-center" aria-label="features">
+                    <div class="container">
+
+                        <p class="section-subtitle label-2">Why Choose Us</p>
+
+                        <h2 class="headline-1 section-title">Our Strength</h2>
+
+                        <ul class="grid-list">
+
+                            <li class="feature-item">
+                                <div class="feature-card">
+
+                                    <div class="card-icon">
+                                        <img src="./assets/images/features-icon-1.png" width="100" height="80" loading="lazy" alt="icon">
+                                    </div>
+
+                                    <h3 class="title-2 card-title">Hygienic Food</h3>
+
+                                    <p class="label-1 card-text">
+                                        We maintain the highest standards of hygiene in our kitchen and dining area.
+                                    </p>
+
+                                </div>
+                            </li>
+
+                            <li class="feature-item">
+                                <div class="feature-card">
+
+                                    <div class="card-icon">
+                                        <img src="./assets/images/features-icon-2.png" width="100" height="80" loading="lazy" alt="icon">
+                                    </div>
+
+                                    <h3 class="title-2 card-title">Fresh Environment</h3>
+
+                                    <p class="label-1 card-text">
+                                        We provide a fresh and welcoming environment for our guests.
+                                    </p>
+
+                                </div>
+                            </li>
+
+                            <li class="feature-item">
+                                <div class="feature-card">
+
+                                    <div class="card-icon">
+                                        <img src="./assets/images/features-icon-3.png" width="100" height="80" loading="lazy" alt="icon">
+                                    </div>
+
+                                    <h3 class="title-2 card-title">Skilled Chefs</h3>
+
+                                    <p class="label-1 card-text">
+                                        Our chefs are highly skilled and experienced in preparing a variety of dishes.
+                                    </p>
+
+                                </div>
+                            </li>
+
+                            <li class="feature-item">
+                                <div class="feature-card">
+
+                                    <div class="card-icon">
+                                        <img src="./assets/images/features-icon-4.png" width="100" height="80" loading="lazy" alt="icon">
+                                    </div>
+
+                                    <h3 class="title-2 card-title">Event & Party</h3>
+
+                                    <p class="label-1 card-text">
+                                        We organize special events and parties for our guests.
+                                    </p>
+
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <img src="./assets/images/shape-7.png" width="208" height="178" loading="lazy" alt="shape"
+                        class="shape shape-1">
+
+                        <img src="./assets/images/shape-8.png" width="120" height="115" loading="lazy" alt="shape"
+                        class="shape shape-2">
+
+                    </div>
+                </section>
+
+
+
+
+
+                <!--
+                    - #EVENTS
+                -->
+
+                <!-- <section class="section event bg-black-10" aria-label="event">
+                    <div class="container">
+
+                        <p class="section-subtitle label-2 text-center">Recent Updates</p>
+
+                        <h2 class="section-title headline-1 text-center">Upcoming Event</h2>
+
+                        <ul class="grid-list">
+
+                            <li>
+                                <div class="event-card has-before hover:shine">
+
+                                    <div class="card-banner img-holder" style="--width: 350; --height: 450;">
+                                        <img src="./assets/images/event-1.jpg" width="350" height="450" loading="lazy"
+                                        alt="Flavour so good you’ll try to eat with your eyes." class="img-cover">
+
+                                        <time class="publish-date label-2" datetime="2022-09-15">15/09/2022</time>
+                                    </div>
+
+                                    <div class="card-content">
+                                        <p class="card-subtitle label-2 text-center">Food, Flavour</p>
+
+                                        <h3 class="card-title title-2 text-center">
+                                            Flavour so good you’ll try to eat with your eyes.
+                                        </h3>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="event-card has-before hover:shine">
+
+                                    <div class="card-banner img-holder" style="--width: 350; --height: 450;">
+                                        <img src="./assets/images/event-2.jpg" width="350" height="450" loading="lazy"
+                                        alt="Flavour so good you’ll try to eat with your eyes." class="img-cover">
+
+                                        <time class="publish-date label-2" datetime="2022-09-15">08/09/2022</time>
+                                    </div>
+
+                                    <div class="card-content">
+                                        <p class="card-subtitle label-2 text-center">Healthy Food</p>
+
+                                        <h3 class="card-title title-2 text-center">
+                                            Flavour so good you’ll try to eat with your eyes.
+                                        </h3>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                             <li>
+                                <div class="event-card has-before hover:shine">
+
+                                    <div class="card-banner img-holder" style="--width: 350; --height: 450;">
+                                        <img src="./assets/images/event-3.jpg" width="350" height="450" loading="lazy"
+                                        alt="Flavour so good you’ll try to eat with your eyes." class="img-cover">
+
+                                        <time class="publish-date label-2" datetime="2022-09-15">03/09/2022</time>
+                                    </div>
+
+                                    <div class="card-content">
+                                        <p class="card-subtitle label-2 text-center">Recipie</p>
+
+                                        <h3 class="card-title title-2 text-center">
+                                            Flavour so good you’ll try to eat with your eyes.
+                                        </h3>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <a  href="#" class="btn btn-primary">
+                            <span class="text text-1">View Our Blog</span>
+
+                            <span class="text text-2" aria-hidden="true">View Our Blog</span>
+                        </a>
+
+                    </div>
+                </section> -->
+
+            </article>
+        </main>
+
+
+
+
+
+        <!--
+            - #FOOTER
+        -->
+
+        <footer class="footer section has-bg-image text-center"
+        id="footer" aria-label="footer"
+        style="background-image: url('./assets/images/footer-bg.jpg')">
+        <div class="container">
+
+            <div class="footer-top grid-list">
+
+                <div class="footer-brand has-before has-after">
+
+                    <a href="#" class="logo">
+                        <img src="./assets/images/logo.svg" width="160" height="50" loading="lazy" alt="grilli home">
+                    </a>
+
+                    <a href="https://www.google.com/search?q=intwo+club&oq=intwo&gs_lcrp=EgZjaHJvbWUqCAgAEEUYJxg7MggIABBFGCcYOzIGCAEQRRg5MgcIAhAAGIAEMgoIAxAAGLEDGIAEMg0IBBAuGK8BGMcBGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAE0gEINjMxOWowajeoAgiwAgHxBX-NIoYwjGfB&sourceid=chrome&source=chrome.ob&ie=UTF-8">
+                        <address class="body-4">
+                        70mm Lounge, Dumarjor, Chas, Bokaro, 827013
+                    </address>
+                    </a>
+
+                    <a href="mailto:70mmlounge8bokaro@gmail.com" class="body-4 contact-link">70mmlounge8bokaro@gmail.com</a>
+
+                    <a href="tel:+918987477773" class="body-4 contact-link">Booking Request : +91 8987477773</a>
+
+                    <p class="body-4">
+                        Open : 03:00 pm - 11:00 pm
+                    </p>
+
+                    <div class="wrapper">
+                        <div class="separator"></div>
+                        <div class="separator"></div>
+                        <div class="separator"></div>
+                    </div>
+
+                    <p class="title-1">Get News & Offers</p>
+
+                    <p class="label-1">
+                        Subscribe us & Get <span class="span">15% Off.</span>
+                    </p>
+
+                    <form id="subscribeForm"  class="input-wrapper">
+
+                        <div class="icon-wrapper">
+                            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+                            <input type="text" name="name" placeholder="Your name" autocomplete="name" class="input-field" required>
+                        </div>
+
+                        <div class="icon-wrapper">
+                            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+                            <input type="tel" name="phone" placeholder="Mobile number" autocomplete="tel" class="input-field" required>
+                        </div>
+
+                        <div class="icon-wrapper">
+                            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+                            <input type="email" name="email" placeholder="Your email" autocomplete="email" class="input-field" required>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn btn-secondary subscribe-btn" data-subscribe-state="idle" aria-live="polite" disabled>
+                            <span class="subscribe-btn-label subscribe-btn-idle">Subscribe</span>
+                            <span class="subscribe-btn-label subscribe-btn-loading">
+                                <span class="subscribe-loading-text">Subscribing</span>
+                                <span class="subscribe-dots" aria-hidden="true">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                            </span>
+                            <span class="subscribe-btn-label subscribe-btn-success">Subscribed</span>
+                        </button>
+                    </form>
+                    <p id="responseMsg" class="subscribe-response" role="status" aria-live="polite"></p>
+
+                </div>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <a href="index.html" class="label-2 footer-link hover-underline">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="menu.html" class="label-2 footer-link hover-underline">Menus</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="label-2 footer-link hover-underline">About Us</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="label-2 footer-link hover-underline">Our Chefs</a>
+                    </li>
+
+                    <li>
+                        <a href="gallery.html" class="label-2 footer-link hover-underline">Gallery</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list footer-social-list">
+
+                    <li>
+                        <a href="https://www.facebook.com/profile.php?id=61577033181231" class="label-2 footer-link footer-social-link hover-underline" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                            <ion-icon name="logo-facebook" aria-hidden="true" size="large"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.instagram.com/70mmlounge/?hl=en" class="label-2 footer-link footer-social-link hover-underline" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                            <ion-icon name="logo-instagram" aria-hidden="true" size="large"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.google.com/maps/dir//Nh+32,+70mm+LOUNGE,+near+hotel+sarkar,+Chas,+Dumarjor,+Jharkhand+827013,+India/@24.9623541,86.1853464,14z/data=!4m8!4m7!1m0!1m5!1m1!1s0x39f4210054107883:0x991ef4d12a67898d!2m2!1d86.2034086!2d23.6655373?entry=ttu&g_ep=EgoyMDI2MDkwMi4wIKXMDSoASAFQAw%3D%3D" class="label-2 footer-link footer-social-link hover-underline" aria-label="Google Map" target="_blank" rel="noopener noreferrer">
+                            <ion-icon name="location-outline" aria-hidden="true" size="large"></ion-icon>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p class="copyright">
+                    &copy; 2021 70MM LOUNGE. All Rights Reserved | Crafted by <a href="https://abhinav-mu.vercel.app/"
+                    target="_blank" class="link"><img src="./assets/images/signature.png" class="signature-image" alt=""></a>
+                </p>
+
+            </div>
+
+        </div>
+        </footer>
+
+
+
+
+
+        <!--
+            - #whatsapp chat
+        -->
+
+        <!-- Elfsight WhatsApp Chat | Untitled WhatsApp Chat -->
+        
+
+
+
+
+        <!--
+            - #back to top
+        -->
+
+        <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+            <ion-icon name="chevron-up" aria-hidden="true" data-back-top-icon></ion-icon>
+            <ion-icon name="chevron-down" aria-hidden="true" data-back-down-icon></ion-icon>
+        </a>
+
+
+
+
+
+        <!--
+            - coustom js link
+        -->
+        <script src="./assets/js/scripts.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyCUUEg54qGG4WEyWCIUzwYD9rq87qkjTs4",
+                authDomain: "mm-lounge-60dc3.firebaseapp.com",
+                databaseURL: "https://mm-lounge-60dc3-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "mm-lounge-60dc3",
+                storageBucket: "mm-lounge-60dc3.firebasestorage.app",
+                messagingSenderId: "124520081947",
+                appId: "1:124520081947:web:ad11c34c54ba9cef23e6be"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            document.querySelector("#mobile-logout-btn").addEventListener("click", async () => {
+                const logoutButton = document.querySelector("#mobile-logout-btn");
+                logoutButton.disabled = true;
+
+                try {
+                    await firebase.auth().signOut();
+                    window.location.href = "./login-signup.html";
+                } catch (error) {
+                    logoutButton.disabled = false;
+                    console.error("Logout failed:", error);
+                }
+            });
+        </script>
+
+        <!--
+            - icon link
+        -->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+</body>
+</html>
