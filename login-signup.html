@@ -235,6 +235,19 @@
         const googleLoginButton = document.querySelector("#google-login-button");
         const authStatus = document.querySelector("#auth-status");
 
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+          .catch((error) => console.error("Persistence setup failed:", error));
+
+        auth.onAuthStateChanged((user) => {
+          if (user) {
+            window.location.replace("./index.html");
+            return;
+          }
+
+          googleLoginButton.disabled = false;
+          authStatus.textContent = "";
+        });
+
         googleLoginButton.addEventListener("click", async () => {
           googleLoginButton.disabled = true;
           authStatus.textContent = "Opening Google login...";
@@ -254,7 +267,7 @@
               console.log("Google login successful:", userProfile);
               await firebase.database().ref(`users/${user.uid}`).update(userProfile);
               console.log("User profile saved to Firebase Database:", `users/${user.uid}`);
-            window.location.href = "./index.html";
+            window.location.replace("./index.html");
           } catch (error) {
             authStatus.style.color = "#ffb4b4";
             authStatus.textContent = error.code === "auth/popup-closed-by-user"

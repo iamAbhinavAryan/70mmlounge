@@ -1456,13 +1456,25 @@
             };
 
             firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+
+            auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                .catch((error) => console.error("Persistence setup failed:", error));
+
+            auth.onAuthStateChanged((user) => {
+                if (!user) {
+                    window.location.replace("./login-signup.html");
+                    return;
+                }
+            });
+
             document.querySelector("#mobile-logout-btn").addEventListener("click", async () => {
                 const logoutButton = document.querySelector("#mobile-logout-btn");
                 logoutButton.disabled = true;
 
                 try {
-                    await firebase.auth().signOut();
-                    window.location.href = "./login-signup.html";
+                    await auth.signOut();
+                    window.location.replace("./login-signup.html");
                 } catch (error) {
                     logoutButton.disabled = false;
                     console.error("Logout failed:", error);
