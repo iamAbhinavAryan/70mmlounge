@@ -924,6 +924,7 @@
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
 
@@ -941,6 +942,33 @@
             const firebaseConfigured = !firebaseConfig.apiKey.startsWith("PASTE_");
             if (firebaseConfigured) {
                 firebase.initializeApp(firebaseConfig);
+            }
+
+            const auth = firebase.apps.length ? firebase.auth() : null;
+            const galleryPlayerBrandImage = document.querySelector("#gallery-player-brand img");
+            const galleryPlayerBrandName = document.querySelector("#gallery-player-brand span");
+            const galleryPlayerBrandLink = document.querySelector("#gallery-player-brand");
+
+            const updateGalleryPlayerBrand = (user) => {
+                if (!galleryPlayerBrandImage || !galleryPlayerBrandName || !galleryPlayerBrandLink) return;
+
+                const fallbackImage = "./assets/images/logo1.png";
+                const fallbackName = "70mm Lounge";
+                const profileImage = user && user.photoURL ? user.photoURL : fallbackImage;
+                const profileName = user && (user.displayName || user.email) ? (user.displayName || user.email.split("@")[0]) : fallbackName;
+
+                galleryPlayerBrandImage.src = profileImage;
+                galleryPlayerBrandImage.alt = profileName;
+                galleryPlayerBrandName.textContent = profileName;
+                galleryPlayerBrandLink.setAttribute("aria-label", `${profileName} profile`);
+            };
+
+            if (auth) {
+                auth.onAuthStateChanged((user) => {
+                    updateGalleryPlayerBrand(user);
+                });
+            } else {
+                updateGalleryPlayerBrand(null);
             }
 
             const galleryTabs = document.querySelectorAll("[data-gallery-tab]");
