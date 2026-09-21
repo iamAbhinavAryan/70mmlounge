@@ -841,6 +841,16 @@ select,
 
 .nav-open-btn .line-3 { animation-delay: 300ms; }
 
+@media (max-width: 767px) {
+  .nav-open-btn,
+  .navbar,
+  .overlay {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
 .navbar {
   position: fixed;
   background-color: var(--smoky-black-1);
@@ -968,8 +978,42 @@ select,
   pointer-events: all;
 }
 
+.menu-mini-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 16px;
+  color: var(--white);
+  background: linear-gradient(rgba(0, 0, 0, 0.55), transparent);
+}
 
+.menu-back-button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: var(--white);
+  background: transparent;
+  border: 0;
+  place-items: center;
+  cursor: pointer;
+}
 
+.menu-back-button ion-icon {
+  font-size: 27px;
+}
+
+.menu-mini-title {
+  margin: 0;
+  color: var(--white);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
 
 /*-----------------------------------*\
   #HERO

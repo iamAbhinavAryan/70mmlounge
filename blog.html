@@ -8,7 +8,7 @@
     <!--
         - primary meta tags
     -->
-    <title>70MM LOUNGE GALLERY</title>
+    <title>70MM LOUNGE | BLOG</title>
     <meta name="title" content="70MM LOUNGE">
     <meta name="description" content="Restaurant & Lounge">
 
@@ -35,8 +35,8 @@
             }
 
             .gallery-page {
-                min-height: 100vh;
-                overflow-y: auto;
+                min-height: 0;
+                overflow: visible;
                 color: var(--profile-text);
                 background: var(--profile-bg);
                 font-family: "DM Sans", sans-serif;
@@ -187,7 +187,7 @@
 
             .gallery-actions {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr) 52px;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
                 gap: 10px;
                 padding: 0 24px 24px;
             }
@@ -197,7 +197,7 @@
                 align-items: center;
                 justify-content: center;
                 min-height: 42px;
-                padding: 0 12px;
+                padding: 0 10px;
                 color: var(--smoky-black-1);
                 font: inherit;
                 font-weight: 700;
@@ -205,9 +205,14 @@
                 border-radius: 9px;
                 background: var(--gold-crayola);
                 text-align: center;
+                white-space: nowrap;
             }
 
-            .gallery-action.icon-only { display: grid; padding: 0; place-items: center; }
+            .gallery-action.icon-only {
+                display: flex;
+                padding: 0;
+                place-items: center;
+            }
             .gallery-action ion-icon { font-size: 22px; }
 
             .gallery-player-comment-count {
@@ -1003,7 +1008,7 @@
                 .gallery-profile {
                     grid-template-columns: 112px 1fr;
                     gap: 18px;
-                    padding: 28px 18px 22px;
+                    padding: 0px 18px 22px;
                 }
 
                 .gallery-avatar { width: 96px; }
@@ -1034,7 +1039,7 @@
             <button type="button" class="gallery-back-button" aria-label="Go back">
                 <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
             </button>
-            <h2 class="gallery-topbar-title">Your reels</h2>
+            <h2 class="gallery-topbar-title">Blog</h2>
         </header>
 
         <section class="gallery-profile" aria-label="70MM Lounge profile">
@@ -1066,9 +1071,7 @@
             <a class="gallery-action" href="https://www.instagram.com/70mmlounge/" target="_blank" rel="noopener noreferrer">Follow</a>
             <a class="gallery-action" href="https://wa.me/918987477773" target="_blank" rel="noopener noreferrer">Message</a>
             <a class="gallery-action" href="./menu.html">Menu</a>
-            <button class="gallery-action icon-only" type="button" aria-label="Follow profile">
-                <ion-icon name="person-add-outline" aria-hidden="true"></ion-icon>
-            </button>
+            <a class="gallery-action" href="index.html#reservation">Booking</a>
         </nav>
 
         <nav class="gallery-tabs" aria-label="Gallery views">
@@ -1097,13 +1100,15 @@
             <a class="gallery-tile" href="./assets/images/club/club16.png"><img src="./assets/images/club/club16.png" alt="70MM Lounge night" loading="lazy"></a>
             <a class="gallery-tile" href="./assets/images/club/club17.png"><img src="./assets/images/club/club17.png" alt="70MM Lounge night" loading="lazy"></a>
             <a class="gallery-tile" href="./assets/images/club/club18.png"><img src="./assets/images/club/club18.png" alt="70MM Lounge night" loading="lazy"></a>
+            <a class="gallery-tile" href="./assets/videos/video-1.mp4"><img src="./assets/videos/video-1.mp4" alt="70MM Lounge night" loading="lazy"></a>
+            <video class="gallery-tile" preload="metadata" playsinline muted poster="./assets/videos/video-1.mp4" src="./assets/videos/video-1.mp4"></video>
 
         </section>
 
         <section class="gallery-view gallery-grid" id="videos" aria-label="70MM Lounge videos" hidden>
-            <div class="gallery-tile gallery-video-tile" data-video-id="reel_101"><video preload="metadata" src="./assets/videos/video-1.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
-            <div class="gallery-tile gallery-video-tile" data-video-id="reel_102"><video preload="metadata" src="./assets/videos/video-2.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
-            <div class="gallery-tile gallery-video-tile" data-video-id="reel_103"><video preload="metadata" src="./assets/videos/video-3.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
+            <div class="gallery-tile gallery-video-tile" data-video-id="reel_101"><video src="./assets/videos/video-1.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
+            <div class="gallery-tile gallery-video-tile" data-video-id="reel_102"><video src="./assets/videos/video-2.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
+            <div class="gallery-tile gallery-video-tile" data-video-id="reel_103"><video src="./assets/videos/video-3.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
         </section>
 
         <section class="gallery-view gallery-grid" id="tagged" aria-label="Tagged posts" hidden></section>
@@ -1214,15 +1219,17 @@
         </div>
     </section>
 
+        <script defer src="./assets/js/scripts.js"></script>
+
         <!--
             - icon link
         -->
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
+        <script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script defer nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
 
         <script>
             const firebaseConfig = {
@@ -1235,12 +1242,12 @@
                 appId: "1:124520081947:web:ad11c34c54ba9cef23e6be"
             };
 
-            const firebaseConfigured = !firebaseConfig.apiKey.startsWith("PASTE_");
+            const firebaseConfigured = typeof window.firebase !== "undefined" && !firebaseConfig.apiKey.startsWith("PASTE_");
             if (firebaseConfigured) {
                 firebase.initializeApp(firebaseConfig);
             }
 
-            const auth = firebase.apps.length ? firebase.auth() : null;
+            const auth = firebaseConfigured && firebase.apps.length ? firebase.auth() : null;
             const galleryPlayerBrandImage = document.querySelector("#gallery-player-brand img");
             const galleryPlayerBrandName = document.querySelector("#gallery-player-brand span");
             const galleryPlayerBrandLink = document.querySelector("#gallery-player-brand");
