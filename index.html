@@ -37,26 +37,6 @@
         <link rel="preload" as="image" href="./assets/images/hero-slider-2.jpg">
         <link rel="preload" as="image" href="./assets/images/hero-slider-3.jpg">
 
-        <style>
-            .mobile-logout-btn {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-                margin-top: 15px;
-                padding: 9px 18px;
-                color: var(--smoky-black-1);
-                font: inherit;
-                font-size: 1.3rem;
-                font-weight: 700;
-                background: var(--gold-crayola);
-                border: 1px solid var(--gold-crayola);
-                border-radius: 6px;
-                cursor: pointer;
-            }
-
-            .mobile-logout-btn ion-icon { font-size: 18px; }
-        </style>
 
 </head>
 
@@ -215,11 +195,6 @@
                     <a href="tel:+918987477773" class="body-1 contact-number hover-underline">
                         +91 8987477773
                     </a>
-
-                    <button class="mobile-logout-btn" id="mobile-logout-btn" type="button">
-                        <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
-                        <span>Logout</span>
-                    </button>
                 </div>
 
                 </nav>
@@ -1671,31 +1646,33 @@
                 appId: "1:124520081947:web:ad11c34c54ba9cef23e6be"
             };
 
-            firebase.initializeApp(firebaseConfig);
-            const auth = firebase.auth();
+            const isLoginPage = window.location.pathname.toLowerCase().endsWith("login-signup.html") || window.location.pathname === "/";
 
-            auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-                .catch((error) => console.error("Persistence setup failed:", error));
+            if (typeof firebase !== "undefined" && !firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
 
-            auth.onAuthStateChanged((user) => {
-                if (!user) {
-                    window.location.replace("./login-signup.html");
-                    return;
-                }
-            });
+            const auth = typeof firebase !== "undefined" && firebase.apps.length ? firebase.auth() : null;
 
-            document.querySelector("#mobile-logout-btn").addEventListener("click", async () => {
-                const logoutButton = document.querySelector("#mobile-logout-btn");
-                logoutButton.disabled = true;
+            if (auth) {
+                auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                    .catch((error) => console.error("Persistence setup failed:", error));
 
-                try {
-                    await auth.signOut();
-                    window.location.replace("./login-signup.html");
-                } catch (error) {
-                    logoutButton.disabled = false;
-                    console.error("Logout failed:", error);
-                }
-            });
+                auth.onAuthStateChanged((user) => {
+                    if (!user) {
+                        if (!isLoginPage) {
+                            window.location.replace("./login-signup.html");
+                        }
+                        return;
+                    }
+
+                    if (isLoginPage) {
+                        window.location.replace("./index.html");
+                    }
+                });
+            } else if (!isLoginPage) {
+                window.location.replace("./login-signup.html");
+            }
         </script>
 
         <!--

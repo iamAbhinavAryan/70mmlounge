@@ -244,6 +244,26 @@
 
             .gallery-view[hidden] { display: none; }
 
+            .gallery-profile-logout {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                width: calc(100% - 48px);
+                margin: 18px 24px 8px;
+                padding: 12px 18px;
+                color: var(--smoky-black-1);
+                font: inherit;
+                font-size: 1.3rem;
+                font-weight: 700;
+                background: var(--gold-crayola);
+                border: 1px solid var(--gold-crayola);
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+            .gallery-profile-logout ion-icon { font-size: 18px; }
+
             .gallery-video-tile video {
                 display: block;
                 width: 100%;
@@ -1113,6 +1133,10 @@
 
         <section class="gallery-view gallery-grid" id="tagged" aria-label="Tagged posts" hidden></section>
         <section class="gallery-view gallery-grid" id="profile" aria-label="Profile pictures" hidden>
+            <button class="gallery-profile-logout" id="gallery-profile-logout" type="button">
+                <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+                <span>Logout</span>
+            </button>
             <a class="gallery-tile" href="./assets/images/logo1.png"><img src="./assets/images/logo1.png" alt="70MM Lounge logo" loading="lazy"></a>
         </section>
     </main>
@@ -1224,12 +1248,12 @@
         <!--
             - icon link
         -->
-        <script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script defer nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-        <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-        <script defer src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
 
         <script>
             const firebaseConfig = {
@@ -1272,6 +1296,50 @@
                 });
             } else {
                 updateGalleryPlayerBrand(null);
+            }
+
+            const profileLogoutButton = document.querySelector("#gallery-profile-logout");
+            const LAST_ACCOUNT_KEY = "70mm-last-auth-user";
+            const persistSignedOutUser = (user) => {
+                if (!user) return;
+
+                const payload = {
+                    name: user.displayName || user.email?.split("@")[0] || "Google user",
+                    email: user.email || "",
+                    photoURL: user.photoURL || "./assets/images/logo1.png"
+                };
+
+                localStorage.setItem(LAST_ACCOUNT_KEY, JSON.stringify(payload));
+            };
+
+            const handleProfileLogout = async () => {
+                const activeAuth = firebaseConfigured && firebase.apps.length ? firebase.auth() : null;
+
+                if (!activeAuth) {
+                    console.warn("Firebase auth not ready yet; redirecting to login.");
+                    window.location.replace("./login-signup.html");
+                    return;
+                }
+
+                if (profileLogoutButton) {
+                    profileLogoutButton.disabled = true;
+                }
+
+                try {
+                    const currentUser = activeAuth.currentUser;
+                    persistSignedOutUser(currentUser);
+                    await activeAuth.signOut();
+                    window.location.replace("./login-signup.html");
+                } catch (error) {
+                    if (profileLogoutButton) {
+                        profileLogoutButton.disabled = false;
+                    }
+                    console.error("Logout failed:", error);
+                }
+            };
+
+            if (profileLogoutButton) {
+                profileLogoutButton.addEventListener("click", handleProfileLogout);
             }
 
             const galleryBackButton = document.querySelector(".gallery-back-button");

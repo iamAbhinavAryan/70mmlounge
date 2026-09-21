@@ -117,11 +117,82 @@
 
           .auth-google-button ion-icon { font-size: 22px; }
 
-          .auth-status {
-            min-height: 20px;
-            margin-top: 16px;
-            color: #ffb4b4;
+          .auth-continue-account {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            width: 90%;
+            max-width: 360px;
+            margin: 16px auto 0;
+            padding: 10px 12px;
+            color: var(--auth-ink);
+            text-align: left;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+            transform: translateY(84px);
+          }
+
+          .auth-continue-account.visible { display: flex; }
+
+          .auth-continue-avatar {
+            display: grid;
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            overflow: hidden;
+            border: 2px solid rgba(226, 182, 89, 0.8);
+            border-radius: 50%;
+            place-items: center;
+            background: rgba(255, 255, 255, 0.06);
+          }
+
+          .auth-continue-avatar img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .auth-continue-copy {
+            min-width: 0;
+            line-height: 1.2;
+          }
+
+          .auth-continue-title {
+            display: block;
+            color: var(--auth-ink);
+            font-size: 0.94rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .auth-continue-email {
+            display: block;
+            margin-top: 4px;
+            color: var(--auth-muted);
             font-size: 0.78rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .auth-status {
+            position: absolute;
+            left: 24px;
+            right: 24px;
+            bottom: 20px;
+            min-height: 22px;
+            margin: 0;
+            color: #ed1818;
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.4;
+            letter-spacing: 0.01em;
             text-align: center;
           }
 
@@ -187,6 +258,10 @@
 
           .auth-page.signup-mode .auth-heading span { font-size: 0.6em; }
 
+          .auth-page {
+            position: relative;
+          }
+
           @media (max-width: 480px) {
             body { min-height: 100svh; padding: 0; }
             .auth-page {
@@ -213,8 +288,19 @@
             <ion-icon name="logo-google" aria-hidden="true"></ion-icon>
             <span>Continue with Google</span>
           </button>
-          <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
+
+          <button class="auth-continue-account" id="auth-continue-account" type="button" aria-label="Continue with this account">
+            <span class="auth-continue-avatar" aria-hidden="true">
+              <img id="auth-continue-avatar-img" src="./assets/images/logo1.png" alt="User avatar">
+            </span>
+            <span class="auth-continue-copy">
+              <span class="auth-continue-title">Continue with this account</span>
+              <span class="auth-continue-email" id="auth-continue-email">user@example.com</span>
+            </span>
+          </button>
+
         </section>
+        <p class="auth-status" id="auth-status" role="status" aria-live="polite"></p>
       </main>
 
       <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -238,9 +324,10 @@
         const googleProvider = new firebase.auth.GoogleAuthProvider();
         const googleLoginButton = document.querySelector("#google-login-button");
         const authStatus = document.querySelector("#auth-status");
-
-        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-          .catch((error) => console.error("Persistence setup failed:", error));
+        const accountContinueButton = document.querySelector("#auth-continue-account");
+        const accountContinueAvatar = document.querySelector("#auth-continue-avatar-img");
+        const accountContinueEmail = document.querySelector("#auth-continue-email");
+        const LAST_ACCOUNT_KEY = "70mm-last-auth-user";
 
         auth.onAuthStateChanged((user) => {
           if (user) {
@@ -248,9 +335,100 @@
             return;
           }
 
-          googleLoginButton.disabled = false;
-          authStatus.textContent = "";
+          renderLastAccount();
+          if (googleLoginButton) {
+            googleLoginButton.disabled = false;
+          }
+          if (authStatus) {
+            authStatus.textContent = "";
+          }
         });
+
+        const saveLastAccount = (user) => {
+          if (!user) return;
+
+          const payload = {
+            name: user.displayName || user.email?.split("@")[0] || "Google user",
+            email: user.email || "",
+            photoURL: user.photoURL || "./assets/images/logo1.png"
+          };
+
+          localStorage.setItem(LAST_ACCOUNT_KEY, JSON.stringify(payload));
+        };
+
+        const saveGoogleUserToDatabase = async (user) => {
+          if (!user || !firebase.database) return;
+
+          const userProfile = {
+            uid: user.uid,
+            name: user.displayName || "Google user",
+            email: user.email || "",
+            image: user.photoURL || "",
+            lastLoginAt: firebase.database.ServerValue.TIMESTAMP
+          };
+
+          await firebase.database().ref(`users/${user.uid}`).update(userProfile);
+          console.log("User profile saved to Firebase Database:", `users/${user.uid}`);
+        };
+
+        const renderLastAccount = () => {
+          if (!accountContinueButton || !accountContinueAvatar || !accountContinueEmail) {
+            return;
+          }
+
+          const storedAccount = localStorage.getItem(LAST_ACCOUNT_KEY);
+          if (!storedAccount) {
+            accountContinueButton.classList.remove("visible");
+            return;
+          }
+
+          try {
+            const parsed = JSON.parse(storedAccount);
+            const email = parsed.email || "";
+            const name = parsed.name || "Google user";
+            const photoURL = parsed.photoURL || "./assets/images/logo1.png";
+
+            if (!email) {
+              accountContinueButton.classList.remove("visible");
+              return;
+            }
+
+            accountContinueAvatar.src = photoURL;
+            accountContinueAvatar.alt = name;
+            accountContinueEmail.textContent = email;
+            accountContinueButton.classList.add("visible");
+          } catch (error) {
+            accountContinueButton.classList.remove("visible");
+            console.error("Unable to read last account:", error);
+          }
+        };
+
+        renderLastAccount();
+
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+          .catch((error) => console.error("Persistence setup failed:", error));
+
+        if (accountContinueButton) {
+          accountContinueButton.addEventListener("click", async () => {
+            googleLoginButton.disabled = true;
+            authStatus.textContent = "Continuing with saved account...";
+            authStatus.style.color = "var(--auth-muted)";
+
+            try {
+              const result = await auth.signInWithPopup(googleProvider);
+              const user = result.user;
+              saveLastAccount(user);
+              await saveGoogleUserToDatabase(user);
+              window.location.replace("./index.html");
+            } catch (error) {
+              authStatus.style.color = "#ffb4b4";
+              authStatus.textContent = error.code === "auth/popup-closed-by-user"
+                ? "Google login was cancelled."
+                : error.message;
+              googleLoginButton.disabled = false;
+            }
+          });
+        }
 
         googleLoginButton.addEventListener("click", async () => {
           googleLoginButton.disabled = true;
@@ -269,9 +447,9 @@
               };
 
               console.log("Google login successful:", userProfile);
-              await firebase.database().ref(`users/${user.uid}`).update(userProfile);
-              console.log("User profile saved to Firebase Database:", `users/${user.uid}`);
-            window.location.replace("./index.html");
+              saveLastAccount(user);
+              await saveGoogleUserToDatabase(user);
+              window.location.replace("./index.html");
           } catch (error) {
             authStatus.style.color = "#ffb4b4";
             authStatus.textContent = error.code === "auth/popup-closed-by-user"

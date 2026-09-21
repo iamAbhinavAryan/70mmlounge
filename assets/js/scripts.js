@@ -1266,6 +1266,8 @@ let savedScrollPos = 0;
 let hasSavedScrollPos = false;
 
 const hideHeader = function () {
+  if (!header) return;
+
   const isScrollBottom = lastScrollPos < window.scrollY;
   if (isScrollBottom) {
     header.classList.add("hide");
@@ -1280,9 +1282,13 @@ window.addEventListener("scroll", function () {
   galleryVideos.forEach(function (video, videoIndex) {
     if (!video.paused) {
       video.pause();
-      galleryPlayButtons[videoIndex].hidden = false;
+      if (galleryPlayButtons[videoIndex]) {
+        galleryPlayButtons[videoIndex].hidden = false;
+      }
     }
   });
+
+  if (!header) return;
 
   if (window.scrollY >= 50) {
     header.classList.add("active");
@@ -1348,7 +1354,7 @@ if (heroSlider && heroSliderItems.length) {
       video.currentTime = 0;
     });
     galleryPlayButtons.forEach(function (button) {
-      button.hidden = false;
+      if (button) button.hidden = false;
     });
     lastActiveSliderItem.classList.remove("active");
     heroSliderItems[currentSlidePos].classList.add("active");
@@ -1388,30 +1394,30 @@ if (heroSlider && heroSliderItems.length) {
     touchStartX = event.touches[0].clientX;
     touchStartY = event.touches[0].clientY;
   }, { passive: true });
-}
 
-heroSlider.addEventListener("touchend", function (event) {
-  if (!touchStartX && !touchStartY) return;
+  heroSlider.addEventListener("touchend", function (event) {
+    if (!touchStartX && !touchStartY) return;
 
-  const touchEndX = event.changedTouches[0].clientX;
-  const touchEndY = event.changedTouches[0].clientY;
-  const horizontalDistance = touchEndX - touchStartX;
-  const verticalDistance = touchEndY - touchStartY;
-  const isHorizontalSwipe = Math.abs(horizontalDistance) > 50 &&
-    Math.abs(horizontalDistance) > Math.abs(verticalDistance);
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+    const horizontalDistance = touchEndX - touchStartX;
+    const verticalDistance = touchEndY - touchStartY;
+    const isHorizontalSwipe = Math.abs(horizontalDistance) > 50 &&
+      Math.abs(horizontalDistance) > Math.abs(verticalDistance);
 
-  if (isHorizontalSwipe) {
-    event.preventDefault();
-    if (horizontalDistance > 0) {
-      slidePrev();
-    } else {
-      slideNext();
+    if (isHorizontalSwipe) {
+      event.preventDefault();
+      if (horizontalDistance > 0) {
+        slidePrev();
+      } else {
+        slideNext();
+      }
     }
-  }
 
-  touchStartX = 0;
-  touchStartY = 0;
-}, { passive: false });
+    touchStartX = 0;
+    touchStartY = 0;
+  }, { passive: false });
+}
 
 /**
  * auto slide
