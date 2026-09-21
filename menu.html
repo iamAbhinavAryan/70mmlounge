@@ -10107,11 +10107,19 @@
                     left: 50%;
                     bottom: 10px;
                     display: block;
-                    transform: translateX(-50%);
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
                     width: 220px;
                     height: 220px;
                     z-index: 9999;
                     pointer-events: auto;
+                    transition: transform 0.35s ease, opacity 0.25s ease;
+                }
+
+                .share-fab.is-hidden {
+                    transform: translateX(-50%) translateY(120px);
+                    opacity: 0;
+                    pointer-events: none;
                 }
 
                 .share-trigger,
@@ -10253,6 +10261,24 @@
             }
 
             if (shareFab && shareTrigger) {
+                let lastScrollY = window.scrollY;
+
+                function updateShareFabVisibility() {
+                    if (!shareFab) return;
+                    const currentScrollY = window.scrollY;
+                    if (currentScrollY > lastScrollY && currentScrollY > 40) {
+                        shareFab.classList.add('is-hidden');
+                    } else {
+                        shareFab.classList.remove('is-hidden');
+                    }
+                    lastScrollY = currentScrollY;
+                }
+
+                function handleScrollCloseShareFab() {
+                    closeShareFab();
+                    updateShareFabVisibility();
+                }
+
                 shareTrigger.addEventListener('click', function (event) {
                     event.stopPropagation();
                     const isOpen = shareFab.classList.toggle('open');
@@ -10271,11 +10297,14 @@
 
                 document.addEventListener('pageshow', function () {
                     closeShareFab();
+                    updateShareFabVisibility();
                 });
 
                 window.addEventListener('beforeunload', function () {
                     closeShareFab();
                 });
+
+                window.addEventListener('scroll', handleScrollCloseShareFab, { passive: true });
             }
         </script>
 
