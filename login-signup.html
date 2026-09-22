@@ -329,21 +329,6 @@
         const accountContinueEmail = document.querySelector("#auth-continue-email");
         const LAST_ACCOUNT_KEY = "70mm-last-auth-user";
 
-        auth.onAuthStateChanged((user) => {
-          if (user) {
-            window.location.replace("./index.html");
-            return;
-          }
-
-          renderLastAccount();
-          if (googleLoginButton) {
-            googleLoginButton.disabled = false;
-          }
-          if (authStatus) {
-            authStatus.textContent = "";
-          }
-        });
-
         const saveLastAccount = (user) => {
           if (!user) return;
 
@@ -405,8 +390,25 @@
 
         renderLastAccount();
 
-        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
           .catch((error) => console.error("Persistence setup failed:", error));
+
+        auth.onAuthStateChanged(async (user) => {
+          if (user) {
+            saveLastAccount(user);
+            try {
+              await saveGoogleUserToDatabase(user);
+            } catch (error) {
+              console.error("Unable to sync user profile to database:", error);
+            }
+            window.location.replace("./index.html");
+            return;
+          }
+
+          renderLastAccount();
+          googleLoginButton.disabled = false;
+          authStatus.textContent = "";
+        });
 
         if (accountContinueButton) {
           accountContinueButton.addEventListener("click", async () => {

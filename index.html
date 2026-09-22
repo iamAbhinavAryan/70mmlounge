@@ -37,6 +37,18 @@
         <link rel="preload" as="image" href="./assets/images/hero-slider-2.jpg">
         <link rel="preload" as="image" href="./assets/images/hero-slider-3.jpg">
 
+        <script>
+            (function () {
+                try {
+                    const savedUser = localStorage.getItem("70mm-last-auth-user");
+                    if (!savedUser) {
+                        window.location.replace("./login-signup.html");
+                    }
+                } catch (error) {
+                    window.location.replace("./login-signup.html");
+                }
+            })();
+        </script>
 
 </head>
 
@@ -1646,33 +1658,19 @@
                 appId: "1:124520081947:web:ad11c34c54ba9cef23e6be"
             };
 
-            const isLoginPage = window.location.pathname.toLowerCase().endsWith("login-signup.html") || window.location.pathname === "/";
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
 
-            if (typeof firebase !== "undefined" && !firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
+            auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                .catch((error) => console.error("Persistence setup failed:", error));
 
-            const auth = typeof firebase !== "undefined" && firebase.apps.length ? firebase.auth() : null;
+            auth.onAuthStateChanged((user) => {
+                if (!user) {
+                    window.location.replace("./login-signup.html");
+                    return;
+                }
+            });
 
-            if (auth) {
-                auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
-                    .catch((error) => console.error("Persistence setup failed:", error));
-
-                auth.onAuthStateChanged((user) => {
-                    if (!user) {
-                        if (!isLoginPage) {
-                            window.location.replace("./login-signup.html");
-                        }
-                        return;
-                    }
-
-                    if (isLoginPage) {
-                        window.location.replace("./index.html");
-                    }
-                });
-            } else if (!isLoginPage) {
-                window.location.replace("./login-signup.html");
-            }
         </script>
 
         <!--

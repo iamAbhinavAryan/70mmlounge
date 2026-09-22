@@ -264,6 +264,87 @@
 
             .gallery-profile-logout ion-icon { font-size: 18px; }
 
+            .gallery-account-profile {
+                display: flexbox;
+                gap: 18px;
+                padding: 28px 24px 12px;
+                text-align: center;
+            }
+
+            .gallery-account-avatar {
+                width: 112px;
+                height: 112px;
+                margin: 0 auto;
+                overflow: hidden;
+                border: 3px solid var(--gold-crayola);
+                border-radius: 50%;
+                background: var(--profile-panel);
+                box-shadow: 0 0 0 5px rgba(226, 182, 89, 0.12);
+            }
+
+            .gallery-account-avatar img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .gallery-account-name {
+                margin: 0;
+                color: var(--profile-text);
+                font-size: 1.35rem;
+            }
+
+            .gallery-account-email {
+                margin: -10px 0 0;
+                color: var(--profile-muted);
+                overflow-wrap: anywhere;
+            }
+
+            .gallery-account-details {
+                display: grid;
+                gap: 10px;
+                margin: 0;
+                text-align: left;
+            }
+
+            .gallery-account-detail {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 0;
+                padding: 12px 14px;
+                color: var(--profile-text);
+                border: 1px solid var(--profile-line);
+                border-radius: 10px;
+                background: var(--profile-panel);
+            }
+
+            .gallery-account-detail[hidden] { display: none; }
+
+            .gallery-account-detail ion-icon {
+                flex: 0 0 auto;
+                color: var(--gold-crayola);
+                font-size: 20px;
+            }
+
+            .gallery-account-detail a {
+                min-width: 0;
+                color: inherit;
+                overflow-wrap: anywhere;
+                text-decoration: none;
+            }
+
+            .gallery-account-detail a:hover { text-decoration: underline; }
+
+            @media (max-width: 480px) {
+                .gallery-account-profile { padding-inline: 16px; }
+                .gallery-profile-logout { width: calc(99% - 61px);
+                     margin-inline: 65px;
+                     height: 50px;
+                    }
+            }
+
             .gallery-video-tile video {
                 display: block;
                 width: 100%;
@@ -1133,11 +1214,31 @@
 
         <section class="gallery-view gallery-grid" id="tagged" aria-label="Tagged posts" hidden></section>
         <section class="gallery-view gallery-grid" id="profile" aria-label="Profile pictures" hidden>
+            <div class="gallery-account-profile">
+                <div class="gallery-account-avatar">
+                    <img id="gallery-account-image" src="./assets/images/logo1.png" alt="User profile">
+                </div>
+                <h3 class="gallery-account-name" id="gallery-account-name">Google user</h3>
+                <p class="gallery-account-email" id="gallery-account-email">Not signed in</p>
+                <div class="gallery-account-details" aria-label="Account contact details">
+                    <div class="gallery-account-detail" id="gallery-account-phone-row" hidden>
+                        <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+                        <a id="gallery-account-phone" href="#"></a>
+                    </div>
+                    <div class="gallery-account-detail" id="gallery-account-facebook-row" hidden>
+                        <ion-icon name="logo-facebook" aria-hidden="true"></ion-icon>
+                        <a id="gallery-account-facebook" href="#" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    </div>
+                    <div class="gallery-account-detail" id="gallery-account-instagram-row" hidden>
+                        <ion-icon name="logo-instagram" aria-hidden="true"></ion-icon>
+                        <a id="gallery-account-instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    </div>
+                </div>
+            </div>
             <button class="gallery-profile-logout" id="gallery-profile-logout" type="button">
                 <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
                 <span>Logout</span>
             </button>
-            <a class="gallery-tile" href="./assets/images/logo1.png"><img src="./assets/images/logo1.png" alt="70MM Lounge logo" loading="lazy"></a>
         </section>
     </main>
 
@@ -1272,6 +1373,15 @@
             }
 
             const auth = firebaseConfigured && firebase.apps.length ? firebase.auth() : null;
+            const galleryAccountImage = document.querySelector("#gallery-account-image");
+            const galleryAccountName = document.querySelector("#gallery-account-name");
+            const galleryAccountEmail = document.querySelector("#gallery-account-email");
+            const galleryAccountPhoneRow = document.querySelector("#gallery-account-phone-row");
+            const galleryAccountPhone = document.querySelector("#gallery-account-phone");
+            const galleryAccountFacebookRow = document.querySelector("#gallery-account-facebook-row");
+            const galleryAccountFacebook = document.querySelector("#gallery-account-facebook");
+            const galleryAccountInstagramRow = document.querySelector("#gallery-account-instagram-row");
+            const galleryAccountInstagram = document.querySelector("#gallery-account-instagram");
             const galleryPlayerBrandImage = document.querySelector("#gallery-player-brand img");
             const galleryPlayerBrandName = document.querySelector("#gallery-player-brand span");
             const galleryPlayerBrandLink = document.querySelector("#gallery-player-brand");
@@ -1290,12 +1400,53 @@
                 galleryPlayerBrandLink.setAttribute("aria-label", `${profileName} profile`);
             };
 
+            const setAccountDetail = (row, link, value, href = value) => {
+                if (!row || !link) return;
+                const normalizedValue = typeof value === "string" ? value.trim() : "";
+                row.hidden = !normalizedValue;
+                if (!normalizedValue) return;
+                link.textContent = normalizedValue;
+                link.href = href;
+            };
+
+            const updateGalleryAccountProfile = async (user) => {
+                if (!galleryAccountImage || !galleryAccountName || !galleryAccountEmail) return;
+
+                const fallbackImage = "./assets/images/logo1.png";
+                galleryAccountImage.src = user?.photoURL || fallbackImage;
+                galleryAccountImage.alt = user?.displayName || "User profile";
+                galleryAccountName.textContent = user?.displayName || user?.email?.split("@")[0] || "Google user";
+                galleryAccountEmail.textContent = user?.email || "Not signed in";
+
+                setAccountDetail(galleryAccountPhoneRow, galleryAccountPhone, user?.phoneNumber, user?.phoneNumber ? `tel:${user.phoneNumber}` : "#");
+                setAccountDetail(galleryAccountFacebookRow, galleryAccountFacebook, "");
+                setAccountDetail(galleryAccountInstagramRow, galleryAccountInstagram, "");
+
+                if (!user || !firebaseConfigured || !firebase.database) return;
+
+                try {
+                    const snapshot = await firebase.database().ref(`users/${user.uid}`).once("value");
+                    const profile = snapshot.val() || {};
+                    const facebook = profile.facebook || profile.facebookUrl || profile.facebookURL;
+                    const instagram = profile.instagram || profile.instagramUrl || profile.instagramURL;
+                    const phone = profile.phone || profile.phoneNumber || user.phoneNumber;
+
+                    setAccountDetail(galleryAccountPhoneRow, galleryAccountPhone, phone, phone ? `tel:${phone}` : "#");
+                    setAccountDetail(galleryAccountFacebookRow, galleryAccountFacebook, facebook, facebook || "#");
+                    setAccountDetail(galleryAccountInstagramRow, galleryAccountInstagram, instagram, instagram || "#");
+                } catch (error) {
+                    console.error("Unable to load account profile:", error);
+                }
+            };
+
             if (auth) {
                 auth.onAuthStateChanged((user) => {
                     updateGalleryPlayerBrand(user);
+                    updateGalleryAccountProfile(user);
                 });
             } else {
                 updateGalleryPlayerBrand(null);
+                updateGalleryAccountProfile(null);
             }
 
             const profileLogoutButton = document.querySelector("#gallery-profile-logout");
