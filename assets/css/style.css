@@ -1118,28 +1118,23 @@ select,
   bottom: 15px;
   right: 15px;
   z-index: 2;
+  overflow: visible;
   background-color: var(--gold-crayola);
   width: 110px;
   height: 110px;
   padding: 12px;
   transform: scale(0.6);
-  box-shadow: 0 0 0 rgba(220, 179, 96, 0.3);
-  animation: heroButtonGlow 2.2s ease-in-out infinite alternate;
+  animation: heroButtonShine 2.4s ease-in-out infinite alternate;
 }
 
-@keyframes heroButtonGlow {
+@keyframes heroButtonShine {
   0% {
-    box-shadow: 0 0 0 rgba(220, 179, 96, 0.18), 0 0 10px rgba(220, 179, 96, 0.12);
+    box-shadow: 0 0 4px rgba(220, 179, 96, 0.14), 0 0 12px rgba(220, 179, 96, 0.08);
     filter: brightness(1);
   }
 
-  50% {
-    box-shadow: 0 0 18px rgba(220, 179, 96, 0.42), 0 0 30px rgba(220, 179, 96, 0.22);
-    filter: brightness(1.08);
-  }
-
   100% {
-    box-shadow: 0 0 28px rgba(220, 179, 96, 0.5), 0 0 42px rgba(220, 179, 96, 0.26);
+    box-shadow: 0 0 14px rgba(220, 179, 96, 0.42), 0 0 30px rgba(220, 179, 96, 0.24);
     filter: brightness(1.12);
   }
 }
@@ -1450,13 +1445,19 @@ select,
 
 .hero-chat-suggestions {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
   padding-right: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
+.hero-chat-suggestions::-webkit-scrollbar { display: none; }
+
 .hero-chat-suggestion {
-  padding: 5px 17px;
+  flex: 1 1 0;
+  min-width: max-content;
+  padding: 5px 10px;
   color: var(--black);
   background-color: rgba(216, 208, 139, 0.7);
   border: 1px solid rgba(17, 17, 17, 0.14);
@@ -1477,7 +1478,7 @@ select,
   gap: 10px;
 }
 
-.hero-chat-input-row input { color: var(--white); font-size: 1.7rem; }
+.hero-chat-input-row input { color: var(--black); font-size: 1.7rem; }
 .hero-chat-input-row input::placeholder { color: #aa916f; opacity: 1; }
 
 .hero-chat-input-row button {
@@ -1498,14 +1499,16 @@ select,
     right: 8px;
     bottom: 105px;
     width: calc(100vw - 16px);
-    height: min(550px, calc(100vh - 130px));
-    min-height: 420px;
+    height: min(460px, calc(100vh - 150px));
+    min-height: 360px;
   }
 
-  .hero-chat-header { padding: 16px 22px; }
+  .hero-chat-header { min-height: 78px; padding: 13px 20px; }
   .hero-chat-brand strong { font-size: 1.6rem; }
   .hero-chat-brand p { font-size: 1.1rem; }
   .hero-chat-message { max-width: 88%; font-size: 1.5rem; }
+  .hero-chat-form { gap: 7px; padding-block: 9px; }
+  .hero-chat-suggestion { padding-inline: 7px; font-size: 1.1rem; }
 }
 
 .hero-call-btn:is(:hover, :focus-visible) {
@@ -1529,10 +1532,10 @@ select,
 }
 
 .hero-btn::after {
-  inset: -6px;
+  inset: -1px;
   border: 1px solid var(--gold-crayola);
-  border-radius: 50%;
-  animation: rotate360 15s linear infinite, heroButtonGlow 2.2s ease-in-out infinite alternate;
+  border-radius: 1px;
+  animation: rotate360 15s linear infinite;
 }
 
 .slider-reveal {
@@ -1723,7 +1726,35 @@ select,
 
 .menu .section-title { margin-block-end: 40px; }
 
+.section.menu {
+  overflow: visible;
+  z-index: 5;
+}
+
 .menu .grid-list { margin-block-end: 50px; }
+
+.menu-dishes-scroll {
+  max-height: min(72vh, 900px);
+  overflow-y: auto;
+  overflow-x: visible;
+  padding: 4px 12px 18px 4px;
+  overscroll-behavior-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  touch-action: pan-y;
+}
+
+.menu-dishes-scroll::-webkit-scrollbar { width: 7px; }
+
+.menu-dishes-scroll::-webkit-scrollbar-track {
+  background: hsla(0, 0%, 100%, 0.08);
+  border-radius: 999px;
+}
+
+.menu-dishes-scroll::-webkit-scrollbar-thumb {
+  background: var(--gold-crayola);
+  border-radius: 999px;
+}
 
 .menu .menu-item[data-category="starter"] { display: none !important; }
 
@@ -1844,18 +1875,9 @@ select,
   bottom: auto;
 }
 
-@media (max-width: 767px) {
-  .description-bubble {
-    top: calc(100% + 12px);
-    bottom: auto;
-    left: calc(50% + 70px);
-  }
-
-  .dish-description[data-bubble-direction="down"] .description-bubble {
-    top: auto;
-    bottom: calc(100% + 12px);
-    left: calc(50% + 70px);
-  }
+.dish-description[open] .description-bubble {
+  position: fixed;
+  z-index: 100;
 }
 
 .description-bubble::before {

@@ -231,7 +231,15 @@ const createChatMessage = function (text, sender) {
 
   const message = document.createElement("div");
   message.className = `hero-chat-message ${sender}`;
-  if (sender === "incoming" && typeof text === "object" && text.type === "reservation") {
+  if (sender === "incoming" && typeof text === "object" && text.type === "blog") {
+    appendChatTextWithLinks(message, text.text);
+
+    const blogLink = document.createElement("a");
+    blogLink.className = "hero-chat-booking-link";
+    blogLink.href = "blog.html";
+    blogLink.textContent = "Open Blog";
+    message.appendChild(blogLink);
+  } else if (sender === "incoming" && typeof text === "object" && text.type === "reservation") {
     appendChatTextWithLinks(message, text.text);
   } else if (sender === "incoming" && typeof text === "object") {
     appendChatTextWithLinks(message, text.text);
@@ -541,6 +549,7 @@ const getAutoReply = async function (text) {
   const language = detectChatLanguage(text);
   const isContactQuery = /\b(contacts?|phone|mobile|call|number|address|location|locate|located|map|direction|directions|where|email|whatsapp|timing|time|hours|opening|closing|samay|kahan|pata)\b/.test(normalized);
   const isReservationQuery = /\b(reservation|reserve|booking|book a table|table booking|table reserve|party booking|birthday celebration|seat available|pre-book|booking inquiry|couple table|family booking|book|table|seat|party|birthday)\b/.test(normalized);
+  const isBlogQuery = /\b(blog|blogs|blogging|article|articles|read blog|view blog)\b/.test(normalized);
   const isGreeting = /\b(hello|hi|hey|namaste|नमस्ते|हैलो)\b/.test(normalized);
 
   if (isReservationQuery) {
@@ -561,6 +570,15 @@ const getAutoReply = async function (text) {
       return `Aap humse ${chatContact.phone} par call kar sakte hain.\nEmail: ${chatContact.email}\nAddress: ${chatContact.address}\nTiming: ${chatContact.hours}`;
     }
     return `You can call us at ${chatContact.phone}.\nEmail: ${chatContact.email}\nAddress: ${chatContact.address}\nTiming: ${chatContact.hours}`;
+  }
+
+  if (isBlogQuery) {
+    return {
+      type: "blog",
+      text: language === "hi"
+        ? "Hamare latest blogs aur updates dekhne ke liye Blog page open karein."
+        : "Open our Blog page to read the latest blogs and updates."
+    };
   }
 
   if (isMenuQuery(text)) return getMenuReply(language);
@@ -603,10 +621,6 @@ if (chatTrigger && chatPanel) {
     chatPanel.setAttribute("aria-hidden", String(!isOpen));
     chatTrigger.setAttribute("aria-expanded", String(isOpen));
     chatTrigger.setAttribute("aria-label", isOpen ? "Close chat" : "Open chat");
-
-    if (isOpen && chatForm && chatForm.elements.message) {
-      window.setTimeout(function () { chatForm.elements.message.focus(); }, 150);
-    }
   };
 
   chatTrigger.addEventListener("click", function (event) {
@@ -1204,18 +1218,42 @@ const menuCards = document.querySelectorAll(".menu-card");
 
 const updateDishBubbleDirections = function () {
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  const viewportGap = 16;
 
   dishDescriptions.forEach(function (description) {
-    const menuCard = description.closest(".menu-card");
+    const toggle = description.querySelector(".description-toggle");
     const bubble = description.querySelector(".description-bubble");
 
-    if (!menuCard || !bubble) return;
+    if (!toggle || !bubble) return;
 
-    const cardRect = menuCard.getBoundingClientRect();
+    const toggleRect = toggle.getBoundingClientRect();
+    const descriptionRect = description.getBoundingClientRect();
     const bubbleHeight = bubble.offsetHeight || 220;
-    const shouldOpenDown = cardRect.bottom + bubbleHeight + 26 > viewportHeight;
+    const bubbleWidth = bubble.offsetWidth || Math.min(280, viewportWidth - (viewportGap * 2));
+    const shouldOpenDown = toggleRect.bottom + bubbleHeight + 12 <= viewportHeight ||
+      toggleRect.top <= bubbleHeight + 12;
+    const desiredCenter = toggleRect.left + (toggleRect.width / 2);
+    const minimumCenter = (bubbleWidth / 2) + viewportGap;
+    const maximumCenter = viewportWidth - (bubbleWidth / 2) - viewportGap;
+    const bubbleCenter = Math.max(minimumCenter, Math.min(maximumCenter, desiredCenter));
 
     description.dataset.bubbleDirection = shouldOpenDown ? "down" : "up";
+    if (description.open) {
+      const desiredTop = shouldOpenDown
+        ? toggleRect.bottom + 12
+        : toggleRect.top - bubbleHeight - 12;
+      const bubbleTop = Math.max(viewportGap, Math.min(
+        viewportHeight - bubbleHeight - viewportGap,
+        desiredTop
+      ));
+
+      bubble.style.left = `${bubbleCenter}px`;
+      bubble.style.top = `${bubbleTop}px`;
+      bubble.style.bottom = "auto";
+    } else {
+      bubble.style.left = `${bubbleCenter - descriptionRect.left}px`;
+    }
   });
 };
 
@@ -1253,10 +1291,10 @@ menuCards.forEach(function (menuCard) {
 dishDescriptions.forEach(function (description) {
   description.addEventListener("toggle", function () {
     if (description.open) {
-      updateDishBubbleDirections();
       dishDescriptions.forEach(function (otherDescription) {
         if (otherDescription !== description) otherDescription.removeAttribute("open");
       });
+      window.requestAnimationFrame(updateDishBubbleDirections);
     }
   });
 });

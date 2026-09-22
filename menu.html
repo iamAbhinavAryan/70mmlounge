@@ -136,7 +136,7 @@
             Header
         -->
 
-        <header class="header" data-header>
+        <!-- <header class="header" data-header>
             <div class="container">
 
                 <a href="index.html">
@@ -187,13 +187,13 @@
                         </a>
                     </li>
 
-                    <!-- <li class="navbar-item">
+                    <li class="navbar-item">
                         <a href="#chefs" class="navbar-link hover-underline">
                             <div class="separator"></div>
 
                             <span class="span">Our Chefs</span>
                         </a>
-                    </li> -->
+                    </li>
 
                 </ul>
 
@@ -235,7 +235,7 @@
                 <div class="overlay" data-nav-toggler data-overlay></div>
 
             </div>
-        </header>
+        </header> -->
 
         <main>
             <article>
@@ -245,6 +245,10 @@
                 -->
 
                 <section class="hero text-center" aria-label="home" id="home">
+
+                    <a href="index.html" class="menu-hero-logo" aria-label="Go to home page">
+                        <img src="./assets/images/logo.svg" width="150" height="50" alt="70mm Lounge home">
+                    </a>
 
                     <ul class="hero-slider" data-hero-slider>
 
@@ -410,6 +414,7 @@
 
                         </div>
 
+                        <div class="menu-dishes-scroll" aria-label="Menu dishes">
                         <ul class="grid-list">
 
 
@@ -9940,6 +9945,7 @@
                             </li>
 
                         </ul>
+                        </div>
 
                         <!-- <p class="menu-text text-center">
                             During winter daily from <span class="span">7:00 pm</span> to <span class="span">9:00 pm</span>
@@ -10140,6 +10146,55 @@
                 display: none;
             }
 
+            .menu-hero-logo {
+                position: fixed;
+                top: 18px;
+                left: 18px;
+                z-index: 10001;
+                display: grid;
+                place-items: center;
+                width: 160px;
+                height: 50px;
+                background: transparent;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                animation: menuLogoShine 2.4s ease-in-out infinite alternate;
+            }
+
+            .menu-hero-logo.is-hidden {
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-18px);
+            }
+
+            .menu-hero-logo img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            @media (max-width: 480px) {
+                .menu-hero-logo {
+                    top: 14px;
+                    left: 14px;
+                    width: 128px;
+                    height: 40px;
+                }
+            }
+
+            @keyframes menuLogoShine {
+                from {
+                    filter: brightness(1);
+                }
+                to {
+                    filter: brightness(1.16);
+                }
+            }
+
+            .menu-dishes-scroll {
+                overscroll-behavior: auto;
+            }
+
             @media (max-width: 767px) {
                 .share-fab {
                     position: fixed;
@@ -10231,8 +10286,8 @@
                 @media (max-width: 480px) {
                     .share-fab {
                         bottom: 30px;
-                        width: 190px;
-                        height: 190px;
+                        width: 0px;
+                        height: 200px;
                     }
 
                     .share-trigger,
@@ -10288,6 +10343,7 @@
         <script>
             const shareFab = document.getElementById('shareFab');
             const shareTrigger = shareFab?.querySelector('.share-trigger');
+            const menuHeroLogo = document.querySelector('.menu-hero-logo');
 
             function closeShareFab() {
                 if (!shareFab || !shareTrigger) return;
@@ -10315,7 +10371,19 @@
 
                 function handleScrollCloseShareFab() {
                     closeShareFab();
-                    updateShareFabVisibility();
+                    shareFab.classList.remove('is-hidden');
+                    if (menuHeroLogo) {
+                        menuHeroLogo.classList.toggle('is-hidden', window.scrollY > lastScrollY && window.scrollY > 40);
+                    }
+                    lastScrollY = window.scrollY;
+                }
+
+                const dishScroll = document.querySelector('.menu-dishes-scroll');
+                if (dishScroll) {
+                    dishScroll.addEventListener('scroll', function () {
+                        closeShareFab();
+                        shareFab.classList.add('is-hidden');
+                    }, { passive: true });
                 }
 
                 shareTrigger.addEventListener('click', function (event) {
