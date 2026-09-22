@@ -39,12 +39,38 @@
 
         <script>
             (function () {
+                const AUTH_SESSION_KEY = "70mm-auth-session";
+                const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+
+                function getStoredSession() {
+                    try {
+                        const raw = localStorage.getItem(AUTH_SESSION_KEY);
+                        if (!raw) return null;
+                        const parsed = JSON.parse(raw);
+                        if (!parsed || !parsed.expiresAt) return null;
+                        return parsed;
+                    } catch (error) {
+                        return null;
+                    }
+                }
+
+                function clearStoredSession() {
+                    try {
+                        localStorage.removeItem(AUTH_SESSION_KEY);
+                    } catch (error) {
+                        console.warn("Unable to clear stored session:", error);
+                    }
+                }
+
                 try {
-                    const savedUser = localStorage.getItem("70mm-last-auth-user");
-                    if (!savedUser) {
+                    const session = getStoredSession();
+                    const isSessionValid = !!session && Number(session.expiresAt) > Date.now();
+                    if (!isSessionValid) {
+                        clearStoredSession();
                         window.location.replace("./login-signup.html");
                     }
                 } catch (error) {
+                    clearStoredSession();
                     window.location.replace("./login-signup.html");
                 }
             })();

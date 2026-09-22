@@ -319,6 +319,44 @@
           appId: "1:124520081947:web:ad11c34c54ba9cef23e6be"
         };
 
+        const AUTH_SESSION_KEY = "70mm-auth-session";
+        const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+        const LAST_ACCOUNT_KEY = "70mm-last-auth-user";
+
+        const getAuthSession = () => {
+          try {
+            const raw = localStorage.getItem(AUTH_SESSION_KEY);
+            if (!raw) return null;
+            const parsed = JSON.parse(raw);
+            return parsed && parsed.expiresAt ? parsed : null;
+          } catch (error) {
+            return null;
+          }
+        };
+
+        const clearAuthSession = () => {
+          try {
+            localStorage.removeItem(AUTH_SESSION_KEY);
+          } catch (error) {
+            console.warn("Unable to clear auth session:", error);
+          }
+        };
+
+        const saveAuthSession = (user) => {
+          if (!user) {
+            clearAuthSession();
+            return;
+          }
+
+          const session = {
+            uid: user.uid,
+            email: user.email || "",
+            expiresAt: Date.now() + SESSION_TTL_MS
+          };
+
+          localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(session));
+        };
+
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const googleProvider = new firebase.auth.GoogleAuthProvider();
@@ -327,7 +365,6 @@
         const accountContinueButton = document.querySelector("#auth-continue-account");
         const accountContinueAvatar = document.querySelector("#auth-continue-avatar-img");
         const accountContinueEmail = document.querySelector("#auth-continue-email");
-        const LAST_ACCOUNT_KEY = "70mm-last-auth-user";
 
         const saveLastAccount = (user) => {
           if (!user) return;
@@ -364,6 +401,9 @@
           const storedAccount = localStorage.getItem(LAST_ACCOUNT_KEY);
           if (!storedAccount) {
             accountContinueButton.classList.remove("visible");
+            if (googleLoginButton) {
+              googleLoginButton.style.display = "flex";
+            }
             return;
           }
 
@@ -375,6 +415,9 @@
 
             if (!email) {
               accountContinueButton.classList.remove("visible");
+              if (googleLoginButton) {
+                googleLoginButton.style.display = "flex";
+              }
               return;
             }
 
@@ -382,19 +425,42 @@
             accountContinueAvatar.alt = name;
             accountContinueEmail.textContent = email;
             accountContinueButton.classList.add("visible");
+
+            if (googleLoginButton) {
+              googleLoginButton.style.display = "flex";
+            }
           } catch (error) {
             accountContinueButton.classList.remove("visible");
+            if (googleLoginButton) {
+              googleLoginButton.style.display = "flex";
+            }
             console.error("Unable to read last account:", error);
           }
         };
 
-        renderLastAccount();
+        const restoreLoggedOutSavedAccount = () => {
+          const saved = localStorage.getItem(LAST_ACCOUNT_KEY);
+          if (!saved) return;
+
+          try {
+            const parsed = JSON.parse(saved);
+            if (!parsed || !parsed.email) return;
+            renderLastAccount();
+          } catch (error) {
+            console.warn("Unable to restore saved account state:", error);
+          }
+        };
+
+        restoreLoggedOutSavedAccount();
 
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
           .catch((error) => console.error("Persistence setup failed:", error));
 
         auth.onAuthStateChanged(async (user) => {
+          const session = getAuthSession();
+
           if (user) {
+            saveAuthSession(user);
             saveLastAccount(user);
             try {
               await saveGoogleUserToDatabase(user);
@@ -405,6 +471,12 @@
             return;
           }
 
+          if (session && Number(session.expiresAt) > Date.now()) {
+            window.location.replace("./index.html");
+            return;
+          }
+
+          clearAuthSession();
           renderLastAccount();
           googleLoginButton.disabled = false;
           authStatus.textContent = "";
@@ -419,6 +491,7 @@
             try {
               const result = await auth.signInWithPopup(googleProvider);
               const user = result.user;
+              saveAuthSession(user);
               saveLastAccount(user);
               await saveGoogleUserToDatabase(user);
               window.location.replace("./index.html");
@@ -449,6 +522,7 @@
               };
 
               console.log("Google login successful:", userProfile);
+              saveAuthSession(user);
               saveLastAccount(user);
               await saveGoogleUserToDatabase(user);
               window.location.replace("./index.html");
