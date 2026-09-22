@@ -1162,6 +1162,8 @@ select,
 }
 
 .hero-whatsapp-btn {
+  appearance: none;
+  cursor: pointer;
   position: absolute;
   left: 20px;
   bottom: 66px;
@@ -1231,6 +1233,8 @@ select,
   transform-origin: bottom right;
   transition: var(--transition-1);
 }
+
+.hero-chat[aria-hidden="true"] { pointer-events: none; }
 
 .hero-chat.active {
   opacity: 1;
@@ -1488,6 +1492,21 @@ select,
 }
 
 .hero-chat-input-row button ion-icon { font-size: 19px; }
+
+@media (max-width: 575px) {
+  .hero-chat {
+    right: 8px;
+    bottom: 105px;
+    width: calc(100vw - 16px);
+    height: min(550px, calc(100vh - 130px));
+    min-height: 420px;
+  }
+
+  .hero-chat-header { padding: 16px 22px; }
+  .hero-chat-brand strong { font-size: 1.6rem; }
+  .hero-chat-brand p { font-size: 1.1rem; }
+  .hero-chat-message { max-width: 88%; font-size: 1.5rem; }
+}
 
 .hero-call-btn:is(:hover, :focus-visible) {
   color: var(--gold-crayola);

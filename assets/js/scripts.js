@@ -602,6 +602,11 @@ if (chatTrigger && chatPanel) {
     chatPanel.classList.toggle("active", isOpen);
     chatPanel.setAttribute("aria-hidden", String(!isOpen));
     chatTrigger.setAttribute("aria-expanded", String(isOpen));
+    chatTrigger.setAttribute("aria-label", isOpen ? "Close chat" : "Open chat");
+
+    if (isOpen && chatForm && chatForm.elements.message) {
+      window.setTimeout(function () { chatForm.elements.message.focus(); }, 150);
+    }
   };
 
   chatTrigger.addEventListener("click", function (event) {
@@ -610,6 +615,18 @@ if (chatTrigger && chatPanel) {
   });
 
   if (chatClose) chatClose.addEventListener("click", function () { setChatState(false); });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && chatPanel.classList.contains("active")) {
+      setChatState(false);
+      chatTrigger.focus();
+    }
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!chatPanel.classList.contains("active")) return;
+    if (!chatPanel.contains(event.target) && !chatTrigger.contains(event.target)) setChatState(false);
+  });
 
   const sendChatMessage = function (message) {
     const trimmedMessage = String(message || "").trim();
@@ -620,7 +637,12 @@ if (chatTrigger && chatPanel) {
     if (chatForm && chatForm.elements.message) chatForm.reset();
 
     window.setTimeout(async function () {
-      createChatMessage(await getAutoReply(trimmedMessage), "incoming");
+      try {
+        createChatMessage(await getAutoReply(trimmedMessage), "incoming");
+      } catch (error) {
+        createChatMessage("Sorry, abhi reply load nahi ho pa raha. Please dobara try karein.", "incoming");
+        console.error("Chat reply failed:", error);
+      }
     }, 900);
   };
 
