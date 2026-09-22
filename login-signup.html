@@ -405,7 +405,7 @@
 
         renderLastAccount();
 
-        auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
           .catch((error) => console.error("Persistence setup failed:", error));
 
         if (accountContinueButton) {
