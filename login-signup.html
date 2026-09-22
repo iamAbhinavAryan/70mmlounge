@@ -137,6 +137,33 @@
 
           .auth-continue-account.visible { display: flex; }
 
+          .auth-continue-account.loading {
+            justify-content: center;
+            min-height: 56px;
+            padding: 10px 16px;
+          }
+
+          .auth-continue-account.loading .auth-continue-copy,
+          .auth-continue-account.loading .auth-continue-avatar {
+            display: none;
+          }
+
+          .auth-continue-account.loading .auth-continue-spinner {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            color: var(--auth-gold);
+            font-size: 22px;
+            animation: auth-spin 1s linear infinite;
+          }
+
+          @keyframes auth-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+
           .auth-continue-avatar {
             display: grid;
             flex-shrink: 0;
@@ -297,6 +324,9 @@
               <span class="auth-continue-title">Continue with this account</span>
               <span class="auth-continue-email" id="auth-continue-email">user@example.com</span>
             </span>
+            <span class="auth-continue-spinner" aria-hidden="true" style="display:none;">
+              <ion-icon name="reload-outline"></ion-icon>
+            </span>
           </button>
 
         </section>
@@ -424,6 +454,7 @@
             accountContinueAvatar.src = photoURL;
             accountContinueAvatar.alt = name;
             accountContinueEmail.textContent = email;
+            accountContinueButton.classList.remove("loading");
             accountContinueButton.classList.add("visible");
 
             if (googleLoginButton) {
@@ -431,10 +462,29 @@
             }
           } catch (error) {
             accountContinueButton.classList.remove("visible");
+            accountContinueButton.classList.remove("loading");
             if (googleLoginButton) {
               googleLoginButton.style.display = "flex";
             }
             console.error("Unable to read last account:", error);
+          }
+        };
+
+        const setContinueAccountLoading = (isLoading) => {
+          if (!accountContinueButton) return;
+
+          const spinner = accountContinueButton.querySelector(".auth-continue-spinner");
+          if (!spinner) return;
+
+          if (isLoading) {
+            accountContinueButton.classList.add("loading");
+            accountContinueButton.classList.add("visible");
+            spinner.style.display = "inline-flex";
+            accountContinueButton.disabled = true;
+          } else {
+            accountContinueButton.classList.remove("loading");
+            spinner.style.display = "none";
+            accountContinueButton.disabled = false;
           }
         };
 
@@ -484,6 +534,7 @@
 
         if (accountContinueButton) {
           accountContinueButton.addEventListener("click", async () => {
+            setContinueAccountLoading(true);
             googleLoginButton.disabled = true;
             authStatus.textContent = "Continuing with saved account...";
             authStatus.style.color = "var(--auth-muted)";
@@ -496,6 +547,7 @@
               await saveGoogleUserToDatabase(user);
               window.location.replace("./index.html");
             } catch (error) {
+              setContinueAccountLoading(false);
               authStatus.style.color = "#ffb4b4";
               authStatus.textContent = error.code === "auth/popup-closed-by-user"
                 ? "Google login was cancelled."
