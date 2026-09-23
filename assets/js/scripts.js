@@ -728,6 +728,39 @@ const menuSearch = document.querySelector("[data-menu-search]");
 const menuSearchBtn = document.querySelector("[data-menu-search-btn]");
 const menuSearchForm = document.querySelector("[data-menu-search-form]");
 const menuSearchInput = document.querySelector("[data-menu-search-input]");
+const menuInputWrapper = document.querySelector(".menu .input-wrapper");
+
+const menuSearchAliases = {
+  "tandoor tikka": ["tandoori", "tikka", "tandoor"],
+  "chinese veg": ["chinese vegetarian", "chinise veg", "chiness veg"],
+  "chinese non-veg": ["chinese non veg", "nonveg chinese", "chinise nonveg"],
+  "main course veg": ["veg main course", "maincourse veg", "main cors veg"],
+  "main course non-veg": ["non veg main course", "maincourse nonveg"],
+  "indian rice": ["rice", "indain rice", "indian rise"],
+  "biryani": ["biriyani", "briyani", "biriani"],
+  "beverages": ["beverage", "bevrage", "drinks", "drink"],
+  "milkshakes": ["milk shake", "milkshak", "shake"],
+  "appetizers": ["appetizer", "appitizer", "snacks", "starter"],
+  "dessert": ["desert", "desserts", "sweet"],
+  "mocktails": ["mocktail", "moktail", "mock tales"]
+};
+
+if (menuInputWrapper && menuSearch) menuInputWrapper.appendChild(menuSearch);
+
+const syncMenuSearchWidth = function () {
+  if (!customSelect || !menuSearchForm) return;
+
+  const categoryWidth = customSelect.getBoundingClientRect().width;
+  const searchButtonWidth = menuSearchBtn?.getBoundingClientRect().width || 46;
+  const controlGap = 10;
+  menuSearchForm.style.setProperty(
+    "--menu-search-form-width",
+    `${Math.max(180, categoryWidth - searchButtonWidth - controlGap)}px`
+  );
+};
+
+syncMenuSearchWidth();
+window.addEventListener("resize", syncMenuSearchWidth);
 
 menuItems.forEach(function (menuItem) {
   const title = menuItem.querySelector(".card-title")?.textContent.trim();
@@ -761,10 +794,36 @@ const applyMenuFilters = function () {
   const selectedCategory = categorySelect ? categorySelect.value : "all";
   const searchTerm = menuSearchInput ? menuSearchInput.value.trim().toLowerCase() : "";
 
+  const normalizedSearchTerm = normalizeChatText(searchTerm);
+  const selectedLabel = categorySelect?.options[categorySelect.selectedIndex]?.textContent || "";
+  const categoryNames = Array.from(categorySelect?.options || []).reduce(function (names, option) {
+    names[option.value] = [option.textContent, ...(menuSearchAliases[normalizeChatText(option.textContent)] || [])];
+    return names;
+  }, {});
+
+  const matchesSearch = function (menuItem) {
+    if (!normalizedSearchTerm) return true;
+
+    const title = normalizeChatText(menuItem.querySelector(".card-title")?.textContent || "");
+    const description = normalizeChatText(menuItem.querySelector(".card-text")?.textContent || "");
+    const category = normalizeChatText(menuItem.dataset.category || "").replace(/-/g, " ");
+    const categoryTerms = categoryNames[menuItem.dataset.category] || [category];
+    const candidates = [title, description, category, ...categoryTerms.flatMap(function (term) {
+      return normalizeChatText(term).split(/\s+/);
+    })];
+    const searchWords = normalizedSearchTerm.split(/\s+/).filter(Boolean);
+
+    return searchWords.every(function (searchWord) {
+      return candidates.some(function (candidate) {
+        return candidate.includes(searchWord) || searchWord.includes(candidate) ||
+          (searchWord.length >= 4 && candidate.length >= 4 && getEditDistance(searchWord, candidate) <= 2);
+      });
+    });
+  };
+
   menuItems.forEach(function (menuItem) {
     const matchesCategory = selectedCategory === "all" || menuItem.dataset.category === selectedCategory;
-    const matchesSearch = menuItem.textContent.toLowerCase().includes(searchTerm);
-    menuItem.style.display = matchesCategory && matchesSearch ? "" : "none";
+    menuItem.style.display = matchesCategory && matchesSearch(menuItem) ? "" : "none";
   });
 };
 
@@ -777,6 +836,8 @@ if (categorySelect) {
   if (categoryTrigger) {
     categoryTrigger.addEventListener("click", function (event) {
       event.stopPropagation();
+      closeOpenDishDescriptions();
+      if (menuSearch) menuSearch.classList.remove("is-open");
       if (!customSelect) return;
       const isOpen = customSelect.classList.toggle("is-open");
       categoryTrigger.setAttribute("aria-expanded", String(isOpen));
@@ -835,6 +896,8 @@ if (categorySelect) {
 
 if (menuSearch && menuSearchBtn && menuSearchInput) {
   menuSearchBtn.addEventListener("click", function () {
+    closeOpenDishDescriptions();
+    closeCustomCategoryMenu();
     menuSearch.classList.toggle("is-open");
 
     if (menuSearch.classList.contains("is-open")) {
@@ -1215,6 +1278,7 @@ if (reservationForm) {
 
 const dishDescriptions = document.querySelectorAll(".dish-description");
 const menuCards = document.querySelectorAll(".menu-card");
+const menuDishesScroll = document.querySelector(".menu-dishes-scroll");
 
 const updateDishBubbleDirections = function () {
   const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
@@ -1304,6 +1368,10 @@ document.addEventListener("click", function (event) {
     closeOpenDishDescriptions();
   }
 });
+
+if (menuDishesScroll) {
+  menuDishesScroll.addEventListener("scroll", closeOpenDishDescriptions, { passive: true });
+}
 
 window.addEventListener("resize", updateDishBubbleDirections);
 window.addEventListener("scroll", function () {

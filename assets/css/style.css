@@ -679,6 +679,77 @@ select,
   background-color: var(--gold-crayola);
 }
 
+.menu .input-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.menu .input-wrapper > .custom-select {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu .input-wrapper > .menu-search {
+  position: relative;
+  inset: auto;
+  display: flex;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  margin-block-end: 20px;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  z-index: 41;
+  order: -1;
+}
+
+.menu .input-wrapper > .menu-search .menu-search-form {
+  position: absolute;
+  top: 0;
+  left: 56px;
+  z-index: 1;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-14px);
+  transition: width var(--transition-1), opacity var(--transition-1), transform var(--transition-1), visibility var(--transition-1);
+}
+
+.menu .input-wrapper > .menu-search.is-open .menu-search-form {
+  width: var(--menu-search-form-width, min(240px, calc(100vw - 120px)));
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.menu .input-wrapper > .menu-search .menu-search-btn {
+  position: relative;
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+}
+
+.menu .input-wrapper > .menu-search .menu-search-input {
+  height: 46px;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 0 hsla(0, 0%, 100%, 0.08),
+    0 5px 0 var(--smoky-black-1),
+    0 10px 18px hsla(0, 0%, 0%, 0.35);
+}
+
+.menu .input-wrapper > .custom-select .custom-select-trigger {
+  min-height: 46px;
+  padding-inline-start: 42px;
+}
+
+.menu .input-wrapper > .custom-select .custom-select-trigger ion-icon:last-child {
+  margin-inline-start: auto;
+}
+
 .icon-wrapper ion-icon {
   position: absolute;
   top: 50%;
@@ -1108,6 +1179,8 @@ select,
 }
 
 .hero .section-subtitle::after { margin-block: 14px 20px; }
+
+.hero .label-2.section-subtitle { font-size: 1.5rem; }
 
 .hero-text { margin-block: 10px 40px; }
 
@@ -1737,6 +1810,8 @@ select,
   max-height: min(72vh, 900px);
   overflow-y: auto;
   overflow-x: visible;
+  border: 1px solid var(--gold-crayola);
+  border-radius: 16px;
   padding: 4px 12px 18px 4px;
   overscroll-behavior-y: auto;
   scrollbar-gutter: stable;
@@ -1783,6 +1858,8 @@ select,
 }
 
 .menu-card .card-banner {
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
   border-radius: var(--radius-24);
   cursor: pointer;
@@ -1797,6 +1874,16 @@ select,
 }
 
 .menu-card .card-title:is(:hover, :focus-visible) { color: var(--gold-crayola); }
+
+.menu-card > div:not(.card-banner) {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-card .title-wrapper {
+  padding-inline-end: 42px;
+}
 
 .menu-card .badge {
   background-color: var(--gold-crayola);
@@ -1822,14 +1909,17 @@ select,
 .dish-description {
   position: relative;
   display: inline-block;
-  margin-block-start: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
 }
 
 .description-toggle {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   color: var(--gold-crayola);
   border: 1px solid var(--gold-crayola);
   border-radius: var(--radius-circle);
@@ -1845,7 +1935,7 @@ select,
   color: var(--eerie-black-1);
 }
 
-.description-toggle ion-icon { font-size: 18px; }
+.description-toggle ion-icon { font-size: 16px; }
 
 .dish-description[open] .description-toggle {
   background-color: var(--gold-crayola);
@@ -1917,6 +2007,21 @@ select,
   border-right: 1px solid var(--gold-crayola);
   border-bottom: 1px solid var(--gold-crayola);
   transform: rotate(45deg);
+}
+
+.dish-description[open] .description-bubble {
+  animation: descriptionBubbleDown 260ms ease-out both;
+}
+
+@keyframes descriptionBubbleDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 .dish-description[data-bubble-direction="down"] .description-bubble::after {
