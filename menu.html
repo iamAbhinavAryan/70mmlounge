@@ -9989,66 +9989,6 @@
                         <img src="./assets/images/logo.svg" width="160" height="50" loading="lazy" alt="grilli home">
                     </a>
 
-                    <address class="body-4">
-                        70mm Lounge, Dumarjor, Chas, Bokaro, 827013
-                    </address>
-
-                    <a href="mailto:70mmlounge8bokaro@gmail.com" class="body-4 contact-link">70mmlounge8bokaro@gmail.com</a>
-
-                    <a href="tel:+918987477773" class="body-4 contact-link">Booking Request : +91 8987477773</a>
-
-                    <p class="body-4">
-                        Open : 03:00 pm - 11:00 pm
-                    </p>
-
-                    <div class="wrapper">
-                        <div class="separator"></div>
-                        <div class="separator"></div>
-                        <div class="separator"></div>
-                    </div>
-
-                    <!-- <p class="title-1">Get News & Offers</p>
-
-                    <p class="label-1">
-                        Subscribe us & Get <span class="span">25% Off.</span>
-                    </p>
-
-                    <form id="subscribeForm" class="input-wrapper">
-
-                        <div class="icon-wrapper">
-                            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                            <input type="text" name="name" placeholder="Your name" autocomplete="name" class="input-field" required>
-                        </div>
-
-                        <div class="icon-wrapper">
-                            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
-
-                            <input type="tel" name="phone" placeholder="Mobile number" autocomplete="tel" class="input-field" required>
-                        </div>
-
-                        <div class="icon-wrapper">
-                            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-
-                            <input type="email" name="email" placeholder="Your email" autocomplete="email" class="input-field" required>
-                        </div>
-
-                        <button type="submit" id="submitBtn" class="btn btn-secondary subscribe-btn" data-subscribe-state="idle" aria-live="polite" disabled>
-                            <span class="subscribe-btn-label subscribe-btn-idle">Subscribe</span>
-                            <span class="subscribe-btn-label subscribe-btn-loading">
-                                <span class="subscribe-loading-text">Subscribing</span>
-                                <span class="subscribe-dots" aria-hidden="true">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </span>
-                            </span>
-                            <span class="subscribe-btn-label subscribe-btn-success">Subscribed</span>
-                        </button> -->
-                    </form>
-                    <p id="responseMsg" class="subscribe-response" role="status" aria-live="polite"></p>
-
                 </div>
 
                 <ul class="footer-list">
@@ -10068,10 +10008,6 @@
                     <li>
                         <a href="index.html#about" class="label-2 footer-link hover-underline">About Us</a>
                     </li>
-
-                    <!-- <li>
-                        <a href="#" class="label-2 footer-link hover-underline">Our Chefs</a>
-                    </li> -->
 
                 </ul>
 
@@ -10122,8 +10058,13 @@
         <div class="menu-search" data-menu-search>
             <form class="menu-search-form" data-menu-search-form>
                 <label class="sr-only" for="menu-search-input">Search dishes</label>
-                <input id="menu-search-input" class="menu-search-input" type="search"
-                    placeholder="Search dishes..." autocomplete="off" data-menu-search-input>
+                <div class="menu-search-field">
+                    <input id="menu-search-input" class="menu-search-input" type="search"
+                        placeholder="Search dishes..." autocomplete="off" data-menu-search-input>
+                    <button class="menu-search-clear" type="button" aria-label="Clear dish search" data-menu-search-clear hidden>
+                        <ion-icon name="close-circle" aria-hidden="true"></ion-icon>
+                    </button>
+                </div>
             </form>
             <button class="menu-search-btn" type="button" aria-label="Open dish search" data-menu-search-btn>
                 <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
@@ -10326,13 +10267,13 @@
         </style>
 
         <div class="share-fab" id="shareFab" aria-label="Quick share actions">
-            <a class="share-option facebook" href="menu.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
+            <a class="share-option facebook" href="menu.html" aria-label="Open Menu page">
                 <ion-icon name="restaurant" aria-hidden="true"></ion-icon>
             </a>
-            <a class="share-option twitter" href="index.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter">
+            <a class="share-option twitter" href="index.html" aria-label="Open Home page">
                 <ion-icon name="home" aria-hidden="true"></ion-icon>
             </a>
-            <a class="share-option instagram" href="blog.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Instagram">
+            <a class="share-option instagram" href="blog.html" aria-label="Open Blog page">
                 <img src="./assets/images/blog.png" alt="Instagram" aria-hidden="true" />
             </a>
             <button class="share-trigger" size="50" type="button" aria-label="Open share actions" aria-expanded="false">
