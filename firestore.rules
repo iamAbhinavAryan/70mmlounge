@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /reelViews/{reelId} {
+      allow read: if true;
+      allow create: if request.auth != null
+        && request.resource.data.count == 1
+        && request.resource.data.keys().hasOnly(['count', 'updatedAt']);
+      allow update: if request.auth != null
+        && request.resource.data.count == resource.data.count + 1
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['count', 'updatedAt']);
+      allow delete: if false;
+
+      match /viewers/{viewerId} {
+        allow read: if request.auth != null && request.auth.uid == viewerId;
+        allow create: if request.auth != null
+          && request.auth.uid == viewerId
+          && request.resource.data.keys().hasOnly(['viewedAt']);
+        allow update, delete: if false;
+      }
+    }
+  }
+}

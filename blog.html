@@ -289,37 +289,60 @@
                 align-items: center;
                 justify-content: center;
                 gap: 8px;
-                width: calc(100% - 48px);
-                margin: 18px 24px 8px;
-                padding: 12px 18px;
-                color: var(--smoky-black-1);
+                width: 220px;
+                margin: 8px auto 0;
+                padding: 14px 22px;
+                color: var(--gold-crayola);
                 font: inherit;
-                font-size: 1.3rem;
+                font-size: 1.2rem;
                 font-weight: 700;
-                background: var(--gold-crayola);
+                background: transparent;
                 border: 1px solid var(--gold-crayola);
-                border-radius: 10px;
+                border-radius: 22px;
                 cursor: pointer;
             }
 
-            .gallery-profile-logout ion-icon { font-size: 18px; }
+            .gallery-profile-logout ion-icon { font-size: 23px; }
 
             .gallery-account-profile {
-                display: flexbox;
-                gap: 18px;
-                padding: 28px 24px 12px;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+                width: calc(100% + 56px);
+                min-height: 330px;
+                margin: 16px -40px 16px -16px;
+                padding: 24px 24px 22px;
                 text-align: center;
+                background: linear-gradient(145deg, #171717 0%, #050505 72%);
+                border: 1px solid var(--gold-crayola);
+                border-radius: 24px;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 24px rgba(226, 182, 89, 0.16);
+            }
+
+            .gallery-account-crown {
+                position: absolute;
+                top: 32px;
+                right: 32px;
+                color: var(--gold-crayola);
+                font-size: 30px;
+                filter: drop-shadow(0 0 5px rgba(226, 182, 89, 0.55));
+            }
+
+            .gallery-account-profile::after {
+                display: none;
             }
 
             .gallery-account-avatar {
                 width: 112px;
                 height: 112px;
-                margin: 0 auto;
+                margin: 0;
                 overflow: hidden;
-                border: 3px solid var(--gold-crayola);
+                border: 5px solid var(--gold-crayola);
                 border-radius: 50%;
                 background: var(--profile-panel);
-                box-shadow: 0 0 0 5px rgba(226, 182, 89, 0.12);
+                box-shadow: 0 0 0 5px rgba(226, 182, 89, 0.12), 0 0 20px rgba(226, 182, 89, 0.2);
             }
 
             .gallery-account-avatar img {
@@ -330,22 +353,39 @@
             }
 
             .gallery-account-name {
-                margin: 0;
+                margin: 4px 0 0;
                 color: var(--profile-text);
-                font-size: 1.35rem;
+                font-size: clamp(1.8rem, 5vw, 3rem);
+                line-height: 1.1;
+            }
+
+            .gallery-account-name::after {
+                content: "";
+                display: block;
+                width: 56px;
+                height: 3px;
+                margin: 18px auto 0;
+                background: var(--gold-crayola);
+                border-radius: 999px;
             }
 
             .gallery-account-email {
-                margin: -10px 0 0;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                max-width: 100%;
+                margin: 8px 0 4px;
                 color: var(--profile-muted);
-                overflow-wrap: anywhere;
+                font-size: clamp(1rem, 3vw, 1.55rem);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
+            .gallery-account-email ion-icon { flex: 0 0 auto; color: var(--gold-crayola); font-size: 28px; }
+
             .gallery-account-details {
-                display: grid;
-                gap: 10px;
-                margin: 0;
-                text-align: left;
+                display: none;
             }
 
             .gallery-account-detail {
@@ -378,11 +418,24 @@
             .gallery-account-detail a:hover { text-decoration: underline; }
 
             @media (max-width: 480px) {
-                .gallery-account-profile { padding-inline: 16px; }
-                .gallery-profile-logout { width: calc(99% - 61px);
-                     margin-inline: 65px;
-                     height: 50px;
-                    }
+                .gallery-account-profile {
+                    width: calc(100% + 150px);
+                    min-height: 310px;
+                    margin: 22px -40px 12px 7px;
+                    padding-inline: 16px;
+                    border-radius: 20px;
+                }
+
+                .gallery-account-avatar {
+                    width: 88px;
+                    height: 88px;
+                }
+
+                .gallery-profile-logout {
+                    width: 200px;
+                    margin-inline: auto;
+                    height: auto;
+                }
             }
 
             .gallery-video-tile video {
@@ -391,6 +444,59 @@
                 height: 100%;
                 object-fit: cover;
                 background: #000;
+            }
+
+            .gallery-video-views {
+                position: absolute;
+                left: 10px;
+                bottom: 10px;
+                z-index: 2;
+                display: inline-flex;
+                align-items: center;
+                visibility: visible;
+                opacity: 1;
+                gap: 2px;
+                padding: 0;
+                color: #fff;
+                font-size: 0.72rem;
+                font-weight: 700;
+                line-height: 1;
+                background: transparent;
+                border: 0;
+                border-radius: 0;
+                pointer-events: none;
+                text-shadow: 0 1px 2px #000;
+            }
+
+            .gallery-video-eye {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 11px;
+                height: 11px;
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .gallery-video-eye ion-icon {
+                position: static;
+                display: inline-flex;
+                flex: 0 0 11px;
+                width: 11px;
+                height: 11px;
+                visibility: visible;
+                opacity: 1;
+                color: #fff !important;
+                font-size: 11px;
+                filter: none;
+            }
+
+            .gallery-video-count {
+                display: inline-block;
+                visibility: visible;
+                opacity: 1;
+                color: #fff;
+                transform: translateY(11px);
             }
 
             .gallery-tile.gallery-video-tile ion-icon { color: var(--gold-crayola); }
@@ -1245,19 +1351,23 @@
         </section>
 
         <section class="gallery-view gallery-grid" id="videos" aria-label="70MM Lounge videos" hidden>
-            <div class="gallery-tile gallery-video-tile" data-video-id="reel_101"><video src="./assets/videos/video-1.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
-            <div class="gallery-tile gallery-video-tile" data-video-id="reel_102"><video src="./assets/videos/video-2.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
-            <div class="gallery-tile gallery-video-tile" data-video-id="reel_103"><video src="./assets/videos/video-3.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon></div>
+            <div class="gallery-tile gallery-video-tile" data-video-id="reel_101"><video src="./assets/videos/video-1.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon><div class="gallery-video-views"><div class="gallery-video-eye"><ion-icon name="eye-outline" aria-hidden="true"></ion-icon></div><div class="gallery-video-count" data-view-count>0</div></div></div>
+            <div class="gallery-tile gallery-video-tile" data-video-id="reel_102"><video src="./assets/videos/video-2.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon><div class="gallery-video-views"><div class="gallery-video-eye"><ion-icon name="eye-outline" aria-hidden="true"></ion-icon></div><div class="gallery-video-count" data-view-count>0</div></div></div>
+            <div class="gallery-tile gallery-video-tile" data-video-id="reel_103"><video src="./assets/videos/video-3.mp4"></video><ion-icon name="videocam" aria-hidden="true"></ion-icon><div class="gallery-video-views"><div class="gallery-video-eye"><ion-icon name="eye-outline" aria-hidden="true"></ion-icon></div><div class="gallery-video-count" data-view-count>0</div></div></div>
         </section>
 
         <section class="gallery-view gallery-grid" id="tagged" aria-label="Tagged posts" hidden></section>
         <section class="gallery-view gallery-grid" id="profile" aria-label="Profile pictures" hidden>
             <div class="gallery-account-profile">
+                <ion-icon class="gallery-account-crown" name="ribbon-outline" aria-hidden="true"></ion-icon>
                 <div class="gallery-account-avatar">
                     <img id="gallery-account-image" src="./assets/images/logo1.png" alt="User profile">
                 </div>
                 <h3 class="gallery-account-name" id="gallery-account-name">Google user</h3>
-                <p class="gallery-account-email" id="gallery-account-email">Not signed in</p>
+                <p class="gallery-account-email" id="gallery-account-email">
+                    <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+                    <span>Not signed in</span>
+                </p>
                 <div class="gallery-account-details" aria-label="Account contact details">
                     <div class="gallery-account-detail" id="gallery-account-phone-row" hidden>
                         <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
@@ -1272,11 +1382,11 @@
                         <a id="gallery-account-instagram" href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
                     </div>
                 </div>
+                <button class="gallery-profile-logout" id="gallery-profile-logout" type="button">
+                    <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
+                    <span>Logout</span>
+                </button>
             </div>
-            <button class="gallery-profile-logout" id="gallery-profile-logout" type="button">
-                <ion-icon name="log-out-outline" aria-hidden="true"></ion-icon>
-                <span>Logout</span>
-            </button>
         </section>
     </main>
 
@@ -1392,6 +1502,7 @@
         <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
 
         <script>
@@ -1411,6 +1522,7 @@
             }
 
             const auth = firebaseConfigured && firebase.apps.length ? firebase.auth() : null;
+            const firestore = firebaseConfigured && firebase.apps.length && firebase.firestore ? firebase.firestore() : null;
             const galleryAccountImage = document.querySelector("#gallery-account-image");
             const galleryAccountName = document.querySelector("#gallery-account-name");
             const galleryAccountEmail = document.querySelector("#gallery-account-email");
@@ -1454,7 +1566,10 @@
                 galleryAccountImage.src = user?.photoURL || fallbackImage;
                 galleryAccountImage.alt = user?.displayName || "User profile";
                 galleryAccountName.textContent = user?.displayName || user?.email?.split("@")[0] || "Google user";
-                galleryAccountEmail.textContent = user?.email || "Not signed in";
+                const galleryAccountEmailText = galleryAccountEmail.querySelector("span");
+                if (galleryAccountEmailText) {
+                    galleryAccountEmailText.textContent = user?.email || "Not signed in";
+                }
 
                 setAccountDetail(galleryAccountPhoneRow, galleryAccountPhone, user?.phoneNumber, user?.phoneNumber ? `tel:${user.phoneNumber}` : "#");
                 setAccountDetail(galleryAccountFacebookRow, galleryAccountFacebook, "");
@@ -1570,6 +1685,13 @@
             const galleryPlayerLike = document.querySelector("#gallery-player-like");
             const galleryPlayerLikeCount = document.querySelector("#gallery-player-like-count");
             const galleryPlayerCommentCount = document.querySelector("#gallery-player-comment-count");
+            const galleryViewListeners = new Map();
+            const galleryViewWatchThreshold = 3;
+            let galleryViewWatchedSeconds = 0;
+            let galleryViewLastPlaybackTime = null;
+            let galleryViewCounted = false;
+            let galleryViewPendingAuth = false;
+            let galleryViewTimer = null;
             const galleryLikeBurst = document.querySelector("#gallery-like-burst");
             const galleryContextBackdrop = document.querySelector("#gallery-context-backdrop");
             const galleryContextSheet = document.querySelector("#gallery-context-sheet");
@@ -1642,17 +1764,7 @@
 
             const getGalleryUserInfo = () => {
                 const user = firebaseConfigured && firebase.auth ? firebase.auth().currentUser : null;
-                if (!user) {
-                    const name = "Guest";
-                    return {
-                        id: getGalleryDeviceId(),
-                        name,
-                        image: "./assets/images/logo1.png",
-                        email: "",
-                        placeholder: "Comment as guest..."
-                    };
-                }
-
+                return user && user.uid ? user.uid : null;
                 const name = user.displayName || user.email?.split("@")[0] || "Guest";
                 return {
                     id: user.uid,
@@ -1661,6 +1773,10 @@
                     email: user.email || "",
                     placeholder: `Comment as ${name}...`
                 };
+                if (!viewerId) {
+                    galleryViewCounted = false;
+                    return;
+                }
             };
 
             const isGalleryAdmin = () => {
@@ -1954,6 +2070,7 @@
                 galleryPlayerVideo.pause();
                 galleryPlayerVideo.removeAttribute("src");
                 galleryPlayerVideo.load();
+                resetGalleryViewTracking();
                 if (galleryLikeListener) {
                     galleryLikeListener.off();
                     galleryLikeListener = null;
@@ -1999,12 +2116,137 @@
                 }
             };
 
+            const getGalleryViewerId = () => {
+                const user = auth && auth.currentUser;
+                return user && user.uid ? user.uid : null;
+            };
+
+            const formatGalleryViewCount = (count) => Number(count || 0).toLocaleString();
+
+            const updateGalleryTileViewCount = (videoId, count) => {
+                const tile = document.querySelector(`.gallery-video-tile[data-video-id="${CSS.escape(videoId)}"]`);
+                const countNode = tile && tile.querySelector("[data-view-count]");
+                if (countNode) countNode.textContent = formatGalleryViewCount(count);
+            };
+
+            const subscribeToViewCount = (videoId) => {
+                if (!firestore || !videoId || galleryViewListeners.has(videoId)) return;
+
+                const unsubscribe = firestore.collection("reelViews").doc(videoId).onSnapshot((snapshot) => {
+                    updateGalleryTileViewCount(videoId, snapshot.exists ? snapshot.data().count : 0);
+                }, (error) => {
+                    console.error("Unable to listen for reel views:", error);
+                });
+
+                galleryViewListeners.set(videoId, unsubscribe);
+            };
+
+            const resetGalleryViewTracking = () => {
+                window.clearTimeout(galleryViewTimer);
+                galleryViewTimer = null;
+                galleryViewWatchedSeconds = 0;
+                galleryViewLastPlaybackTime = null;
+                galleryViewCounted = false;
+                galleryViewPendingAuth = false;
+            };
+
+            const startGalleryViewTimer = () => {
+                if (galleryViewCounted || galleryViewTimer !== null) return;
+
+                galleryViewTimer = window.setTimeout(() => {
+                    galleryViewTimer = null;
+                    galleryViewWatchedSeconds = galleryViewWatchThreshold;
+                    recordGalleryView();
+                }, galleryViewWatchThreshold * 1000);
+            };
+
+            const stopGalleryViewTimer = () => {
+                window.clearTimeout(galleryViewTimer);
+                galleryViewTimer = null;
+            };
+
+            const recordGalleryView = async () => {
+                if (!firestore || !galleryActiveVideoId || galleryViewCounted) return;
+                galleryViewCounted = true;
+
+                const videoId = galleryActiveVideoId;
+                const viewerId = getGalleryViewerId();
+                if (!viewerId) {
+                    galleryViewCounted = false;
+                    galleryViewPendingAuth = true;
+                    return;
+                }
+                galleryViewPendingAuth = false;
+                const viewRef = firestore.collection("reelViews").doc(videoId);
+                const viewerRef = viewRef.collection("viewers").doc(viewerId);
+
+                try {
+                    await firestore.runTransaction(async (transaction) => {
+                        const viewerSnapshot = await transaction.get(viewerRef);
+                        if (viewerSnapshot.exists) return;
+
+                        const viewSnapshot = await transaction.get(viewRef);
+                        const updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+
+                        if (viewSnapshot.exists) {
+                            transaction.update(viewRef, {
+                                count: firebase.firestore.FieldValue.increment(1),
+                                updatedAt
+                            });
+                        } else {
+                            transaction.set(viewRef, {
+                                count: 1,
+                                updatedAt
+                            });
+                        }
+                        transaction.set(viewerRef, {
+                            viewedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    });
+                } catch (error) {
+                    galleryViewCounted = false;
+                    console.error("Unable to record reel view:", error);
+                }
+            };
+
+            const trackGalleryViewProgress = () => {
+                if (!galleryPlayerVideo || galleryPlayerVideo.paused || galleryViewCounted) return;
+
+                const currentTime = galleryPlayerVideo.currentTime;
+                if (galleryViewLastPlaybackTime !== null) {
+                    const elapsed = currentTime - galleryViewLastPlaybackTime;
+                    if (elapsed > 0 && elapsed < 1.5) galleryViewWatchedSeconds += elapsed;
+                }
+                galleryViewLastPlaybackTime = currentTime;
+
+                const duration = Number(galleryPlayerVideo.duration);
+                const requiredSeconds = Number.isFinite(duration) && duration > 0
+                    ? Math.min(galleryViewWatchThreshold, Math.max(1, duration * 0.5))
+                    : galleryViewWatchThreshold;
+
+                if (galleryViewWatchedSeconds >= requiredSeconds) {
+                    galleryViewPendingAuth = true;
+                    recordGalleryView();
+                }
+            };
+
+            galleryVideoTiles.forEach((tile) => subscribeToViewCount(tile.dataset.videoId));
+
+            if (auth) {
+                auth.onAuthStateChanged((user) => {
+                    if (user && galleryViewPendingAuth && galleryViewWatchedSeconds > 0) {
+                        recordGalleryView();
+                    }
+                });
+            }
+
             const openGalleryVideo = (index) => {
                 const tile = galleryVideoTiles[index];
                 if (!tile) return;
                 const source = tile.querySelector("video").getAttribute("src");
                 galleryPlayerIndex = index;
                 galleryActiveVideoId = tile.dataset.videoId;
+                resetGalleryViewTracking();
                 galleryPlayerVideo.src = source;
                 galleryPlayerVideo.currentTime = 0;
                 galleryPlayerVideo.muted = false;
@@ -2083,8 +2325,16 @@
                 }
                 updatePlayerIcon();
             });
-            galleryPlayerVideo.addEventListener("play", updatePlayerIcon);
-            galleryPlayerVideo.addEventListener("pause", updatePlayerIcon);
+            galleryPlayerVideo.addEventListener("play", () => {
+                galleryViewLastPlaybackTime = galleryPlayerVideo.currentTime;
+                startGalleryViewTimer();
+                updatePlayerIcon();
+            });
+            galleryPlayerVideo.addEventListener("pause", () => {
+                stopGalleryViewTimer();
+                galleryViewLastPlaybackTime = null;
+                updatePlayerIcon();
+            });
             galleryPlayerVideo.addEventListener("ended", updatePlayerIcon);
 
             galleryPlayerComment.addEventListener("click", (event) => {
