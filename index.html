@@ -901,11 +901,11 @@
                             <div class="elfsight-app-eb4dfb49-c336-41c9-ad6f-5e98bf2da8b8" data-elfsight-app-lazy></div>
                         </div>
 
-                        <a href="https://g.page/r/CY2JZyrR9B6ZEAE/review">
-                    <span class="text text-1">Write a Review</span>
+                        <a href="https://g.page/r/CY2JZyrR9B6ZEAE/review" class="btn btn-primary review-btn">
+                            <span class="text text-1">Write a Review</span>
 
-                    <span class="text text-2" aria-hidden="true">Write a Review</span>
-                </a>
+                            <span class="text text-2" aria-hidden="true">Write a Review</span>
+                        </a>
 
                         <!-- <div class="profile">
                             <img src="./assets/images/testi-avatar.jpg" width="100" height="100" loading="lazy" alt="Sam Jhonson"
@@ -1046,10 +1046,13 @@
 
                                 <textarea name="message" placeholder="Message" autocomplete="off" class="input-field" required></textarea>
 
-                                <button type="submit" id="reservationSubmitBtn" class="btn btn-secondary" disabled>
+                                <button type="submit" id="reservationSubmitBtn" class="btn btn-secondary reservation-submit-btn" disabled>
                                     <span class="text text-1">Book A Table</span>
 
                                     <span class="text text-2" aria-hidden="true">Book A Table</span>
+                                    <span class="reservation-plane" aria-hidden="true">
+                                        <ion-icon name="paper-plane"></ion-icon>
+                                    </span>
                                 </button>
 
                                 <p id="reservationSuccessMsg" class="reservation-success-msg" role="status" aria-live="polite">Reservation sent</p>
@@ -1361,6 +1364,9 @@
                                 </span>
                             </span>
                             <span class="subscribe-btn-label subscribe-btn-success">Subscribed</span>
+                            <span class="subscribe-plane" aria-hidden="true">
+                                <ion-icon name="paper-plane"></ion-icon>
+                            </span>
                         </button>
                     </form>
                     <p id="responseMsg" class="subscribe-response" role="status" aria-live="polite"></p>

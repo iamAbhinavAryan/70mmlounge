@@ -962,6 +962,62 @@ if (menuSearch && menuSearchBtn && menuSearchInput) {
 const featureCards = document.querySelectorAll('.feature-card');
 const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
+const prepareMorphText = function (element) {
+  if (!element || element.dataset.morphReady === 'true') return;
+
+  const words = element.textContent.trim().split(/\s+/);
+  element.textContent = '';
+  element.classList.add('morph-text');
+
+  words.forEach(function (word, index) {
+    const wordNode = document.createElement('span');
+    wordNode.className = 'morph-word';
+    wordNode.style.setProperty('--word-index', index);
+    wordNode.textContent = word;
+    element.appendChild(wordNode);
+
+    if (index < words.length - 1) {
+      element.appendChild(document.createTextNode(' '));
+    }
+  });
+
+  element.dataset.morphReady = 'true';
+};
+
+const replayMorphText = function (element) {
+  if (!element) return;
+  element.classList.remove('is-visible');
+  void element.offsetWidth;
+  element.classList.add('is-visible');
+};
+
+const testimonialText = document.querySelector('.testi-text');
+const aboutText = document.querySelector('.about .section-text');
+
+[testimonialText, aboutText].forEach(function (element) {
+  prepareMorphText(element);
+});
+
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  [testimonialText, aboutText].forEach(function (element) {
+    if (element) element.classList.add('is-visible');
+  });
+} else {
+  const morphObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        replayMorphText(entry.target);
+      } else {
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.25 });
+
+  [testimonialText, aboutText].forEach(function (element) {
+    if (element) morphObserver.observe(element);
+  });
+}
+
 if (isTouchDevice && featureCards.length) {
   const featureObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
@@ -1205,6 +1261,18 @@ if (reservationForm) {
     });
   };
 
+  const resetReservationForm = function () {
+    reservationForm.reset();
+
+    reservationForm.querySelectorAll('.reservation-select select').forEach(function (select) {
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+
+    reservationForm.querySelectorAll('.reservation-date-input').forEach(function (input) {
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  };
+
   const syncReservationSubmitState = function () {
     if (!reservationSubmitBtn) return;
 
@@ -1223,6 +1291,7 @@ if (reservationForm) {
     if (!reservationSuccessMsg || !reservationSubmitBtn) return;
 
     const successLabel = 'Reservation sent';
+    reservationSubmitBtn.classList.remove('is-sending');
     reservationSubmitBtn.dataset.reservationState = 'success';
     updateReservationButtonLabel(successLabel);
     reservationSubmitBtn.disabled = false;
@@ -1237,8 +1306,11 @@ if (reservationForm) {
     }
 
     reservationResetTimer = window.setTimeout(function () {
+      reservationSubmitBtn.classList.remove('is-sending');
       reservationSubmitBtn.dataset.reservationState = 'idle';
+      resetReservationForm();
       updateReservationButtonLabel(reservationDefaultLabel);
+      reservationSubmitBtn.blur();
       reservationSuccessMsg.style.display = 'none';
       reservationSuccessMsg.textContent = '';
       syncReservationSubmitState();
@@ -1255,6 +1327,11 @@ if (reservationForm) {
       syncReservationSubmitState();
       return;
     }
+
+    reservationSubmitBtn.classList.remove('is-sending');
+    void reservationSubmitBtn.offsetWidth;
+    reservationSubmitBtn.classList.add('is-sending');
+    reservationSubmitBtn.disabled = true;
 
     const formData = new FormData(reservationForm);
     const reservationMessage = [
@@ -1288,11 +1365,10 @@ if (reservationForm) {
         window.location.href = whatsappUrl;
       }
 
-      reservationForm.reset();
-      syncReservationSubmitState();
       showReservationSuccess();
     } catch (error) {
       if (whatsappWindow) whatsappWindow.close();
+      reservationSubmitBtn.classList.remove('is-sending');
       window.alert("Reservation email could not be sent. Please try again.");
       syncReservationSubmitState();
     }
@@ -1723,11 +1799,25 @@ if (!isMobileDevice) {
   const form = document.getElementById('subscribeForm');
   const submitBtn = document.getElementById('submitBtn');
   const responseMsg = document.getElementById('responseMsg');
+  const subscribeTakeoffSound = new Audio('./assets/rocket.mp3');
+  subscribeTakeoffSound.preload = 'auto';
+
+  const playSubscribeTakeoffSound = function () {
+    subscribeTakeoffSound.currentTime = 0;
+    const playback = subscribeTakeoffSound.play();
+
+    if (playback && typeof playback.catch === 'function') {
+      playback.catch(function () {
+        // Browser audio policies may reject playback without a user gesture.
+      });
+    }
+  };
 
   const updateSubscribeButtonState = function (state) {
     if (!submitBtn) return;
 
     submitBtn.setAttribute('data-subscribe-state', state);
+    submitBtn.classList.toggle('is-sending', state === 'loading');
     submitBtn.disabled = state !== 'idle' && state !== 'success';
 
     if (state === 'idle') {
@@ -1761,6 +1851,7 @@ if (!isMobileDevice) {
       responseMsg.style.display = 'none';
       responseMsg.innerText = '';
       resetSubscribeStatus();
+      submitBtn.blur();
     }, 5000);
   };
 
@@ -1783,6 +1874,7 @@ if (!isMobileDevice) {
       }
 
       updateSubscribeButtonState('loading');
+      playSubscribeTakeoffSound();
       responseMsg.style.display = 'none';
 
       const formData = new URLSearchParams({
